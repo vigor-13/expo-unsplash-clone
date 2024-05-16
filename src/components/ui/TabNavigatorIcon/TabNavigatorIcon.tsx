@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 import {
   IconPhoto,
   IconSearch,
   IconSquarePlus,
   IconUserCircle,
-} from "@tabler/icons-react-native";
+} from '@tabler/icons-react-native';
 
 export type TabNavigatorIconName =
-  | "IconPhoto"
-  | "IconSearch"
-  | "IconSquarePlus"
-  | "IconUserCircle";
+  | 'IconPhoto'
+  | 'IconSearch'
+  | 'IconSquarePlus'
+  | 'IconUserCircle';
 
 export interface TabNavigatorIconProps {
   name: TabNavigatorIconName;
@@ -23,13 +23,13 @@ export const TabNavigatorIcon: React.FC<TabNavigatorIconProps> = (props) => {
 
   const renderIcon = () => {
     switch (name) {
-      case "IconPhoto":
+      case 'IconPhoto':
         return <IconPhoto color={color} size={size} />;
-      case "IconSearch":
+      case 'IconSearch':
         return <IconSearch color={color} size={size} />;
-      case "IconSquarePlus":
+      case 'IconSquarePlus':
         return <IconSquarePlus color={color} size={size} />;
-      case "IconUserCircle":
+      case 'IconUserCircle':
         return <IconUserCircle color={color} size={size} />;
       default:
         return null;

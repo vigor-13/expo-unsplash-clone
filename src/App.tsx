@@ -1,8 +1,7 @@
-import "react-native-gesture-handler";
-import { View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { Router } from "@/routes";
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { Router } from '@/routes';
 
 export default function App() {
   /**
@@ -12,7 +11,7 @@ export default function App() {
    * - 개발 빌드로 전환할 때 제거해야함
    */
   const [fontsLoaded] = useFonts({
-    "Pretendard-Regular": require("../assets/fonts/Pretendard-Regular.otf"),
+    'Pretendard-Regular': require('../assets/fonts/Pretendard-Regular.otf'),
   });
 
   return (

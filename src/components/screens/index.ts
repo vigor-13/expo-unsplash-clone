@@ -1,1 +1,1 @@
-export * from "./DummyScreen";
+export * from './DummyScreen';

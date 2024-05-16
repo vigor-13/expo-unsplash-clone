@@ -1,6 +1,6 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import { MainTabComponent } from "../MainTab";
-import { RootStackParamList } from "./RootStack.type";
+import { createStackNavigator } from '@react-navigation/stack';
+import { MainTabComponent } from '../MainTab';
+import { RootStackParamList } from './RootStack.type';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 

@@ -1,9 +1,9 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { DummyScreen } from "@/components/screens";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { DummyScreen } from '@/components/screens';
 import { TabNavigatorIcon, type TabNavigatorIconName } from '@/components/ui';
-import { AuthStackComponent } from "../AuthStack";
-import { MainTabParamList } from "./MainTab.type";
+import { AuthStackComponent } from '../AuthStack';
+import { MainTabParamList } from './MainTab.type';
 
 const MainTab = createBottomTabNavigator<MainTabParamList>();
 
@@ -31,14 +31,13 @@ export const MainTabComponent: React.FC = () => {
               break;
           }
 
-          return <TabNavigatorIcon name={iconName} size={28} color={color} />
+          return <TabNavigatorIcon name={iconName} size={28} color={color} />;
         },
         tabBarStyle: {
           backgroundColor: 'black',
           paddingTop: 10,
         },
       })}
-
     >
       <MainTab.Screen name="MainScreen" component={DummyScreen} />
       <MainTab.Screen name="SearchScreen" component={DummyScreen} />

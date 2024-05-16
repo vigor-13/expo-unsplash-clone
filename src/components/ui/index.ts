@@ -1,1 +1,1 @@
-export * from "./TabNavigatorIcon";
+export * from './TabNavigatorIcon';

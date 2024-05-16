@@ -1,2 +1,2 @@
-export * from "./AuthStack";
-export * from "./AuthStack.type";
+export * from './AuthStack';
+export * from './AuthStack.type';

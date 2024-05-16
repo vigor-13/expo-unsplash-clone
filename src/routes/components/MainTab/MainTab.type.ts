@@ -1,4 +1,4 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 export type MainTabParamList = {
   MainScreen: undefined;
@@ -7,6 +7,5 @@ export type MainTabParamList = {
   AuthStack: undefined;
 };
 
-export type MainTabScreenProps<
-  T extends keyof MainTabParamList
-> = BottomTabScreenProps<MainTabParamList, T>;
+export type MainTabScreenProps<T extends keyof MainTabParamList> =
+  BottomTabScreenProps<MainTabParamList, T>;

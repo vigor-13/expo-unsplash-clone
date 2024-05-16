@@ -1,2 +1,2 @@
-export * from "./MainTab";
-export * from "./MainTab.type";
+export * from './MainTab';
+export * from './MainTab.type';
