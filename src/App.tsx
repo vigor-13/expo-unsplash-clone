@@ -3,6 +3,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Router } from '@/routes';
 import { tokens } from '@/ui/themes';
+import { QueryClientProvider } from '@/utils/react-query';
 
 export default function App() {
   /**
@@ -33,9 +34,11 @@ export default function App() {
 
   return (
     fontsLoaded && (
-      <NavigationContainer theme={defaultTheme}>
-        <Router />
-      </NavigationContainer>
+      <QueryClientProvider>
+        <NavigationContainer theme={defaultTheme}>
+          <Router />
+        </NavigationContainer>
+      </QueryClientProvider>
     )
   );
 }
