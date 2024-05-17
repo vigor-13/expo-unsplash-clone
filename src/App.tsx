@@ -1,9 +1,12 @@
 import 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 import { Router } from '@/routes';
 import { tokens } from '@/ui/themes';
 import { QueryClientProvider } from '@/utils/react-query';
+import { Prefetch } from './Prefetch';
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   /**
@@ -36,7 +39,9 @@ export default function App() {
     fontsLoaded && (
       <QueryClientProvider>
         <NavigationContainer theme={defaultTheme}>
-          <Router />
+          <Prefetch>
+            <Router />
+          </Prefetch>
         </NavigationContainer>
       </QueryClientProvider>
     )

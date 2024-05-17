@@ -16,15 +16,24 @@ dependencies:
   '@tanstack/react-query':
     specifier: ^5.36.2
     version: 5.36.2(react@18.2.0)
+  axios:
+    specifier: ^1.6.8
+    version: 1.6.8
   expo:
     specifier: ~51.0.7
     version: 51.0.7(@babel/core@7.24.5)(@babel/preset-env@7.24.5)
   expo-font:
     specifier: ~12.0.5
     version: 12.0.5(expo@51.0.7)
+  expo-splash-screen:
+    specifier: ~0.27.4
+    version: 0.27.4(expo-modules-autolinking@1.11.1)(expo@51.0.7)
   expo-status-bar:
     specifier: ~1.12.1
     version: 1.12.1
+  qs:
+    specifier: ^6.12.1
+    version: 6.12.1
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -51,6 +60,9 @@ devDependencies:
   '@tanstack/eslint-plugin-query':
     specifier: ^5.35.6
     version: 5.35.6(eslint@8.57.0)(typescript@5.4.5)
+  '@types/qs':
+    specifier: ^6.9.15
+    version: 6.9.15
   '@types/react':
     specifier: ~18.2.45
     version: 18.2.79
@@ -2720,6 +2732,10 @@ packages:
   /@types/prop-types@15.7.12:
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
 
+  /@types/qs@6.9.15:
+    resolution: {integrity: sha512-uXHQKES6DQKKCLh441Xv/dwxOq1TVS3JPUMlEqoEglvlhR6Mxnlew/Xq/LRVHpLyk7iK3zODe1qYHIMltO7XGg==}
+    dev: true
+
   /@types/react@18.2.79:
     resolution: {integrity: sha512-RwGAGXPl9kSXwdNTafkOEuFrTBD5SA2B3iEB96xi8+xu5ddUa/cpvyVCSNn+asgLCTHkb5ZxN8gbuibYJi4s1w==}
     dependencies:
@@ -3238,6 +3254,16 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       possible-typed-array-names: 1.0.0
+
+  /axios@1.6.8:
+    resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
+    dependencies:
+      follow-redirects: 1.15.6
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /babel-core@7.0.0-bridge.0(@babel/core@7.24.5):
     resolution: {integrity: sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==}
@@ -4649,6 +4675,19 @@ packages:
       invariant: 2.2.4
     dev: false
 
+  /expo-splash-screen@0.27.4(expo-modules-autolinking@1.11.1)(expo@51.0.7):
+    resolution: {integrity: sha512-JwepK1FjbwiOK2nwIFanfzj9s7UXYnpTwLX8A9v7Ec3K4V28yu8HooSc9X60cftBw9UZrs8Gwj4PgTpQabBS9A==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@expo/prebuild-config': 7.0.3(expo-modules-autolinking@1.11.1)
+      expo: 51.0.7(@babel/core@7.24.5)(@babel/preset-env@7.24.5)
+    transitivePeerDependencies:
+      - encoding
+      - expo-modules-autolinking
+      - supports-color
+    dev: false
+
   /expo-status-bar@1.12.1:
     resolution: {integrity: sha512-/t3xdbS8KB0prj5KG5w7z+wZPFlPtkgs95BsmrP/E7Q0xHXTcDcQ6Cu2FkFuRM+PKTb17cJDnLkawyS5vDLxMA==}
     dev: false
@@ -4853,6 +4892,16 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: false
 
+  /follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
   /fontfaceobserver@2.3.0:
     resolution: {integrity: sha512-6FPvD/IVyT4ZlNe7Wcn5Fb/4ChigpucKYSvD6a+0iMoLn2inpo711eyIcKjmDtE5XNcgAkSH9uN/nfAeZzHEfg==}
     dev: false
@@ -4864,6 +4913,15 @@ packages:
 
   /form-data@3.0.1:
     resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
+    engines: {node: '>= 6'}
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      mime-types: 2.1.35
+    dev: false
+
+  /form-data@4.0.0:
+    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
     engines: {node: '>= 6'}
     dependencies:
       asynckit: 0.4.0
@@ -7021,6 +7079,10 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
 
+  /proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: false
+
   /pump@3.0.0:
     resolution: {integrity: sha512-LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==}
     dependencies:
@@ -7035,6 +7097,13 @@ packages:
   /qrcode-terminal@0.11.0:
     resolution: {integrity: sha512-Uu7ii+FQy4Qf82G4xu7ShHhjhGahEpCWc3x8UavY3CTcWV+ufmmCtwkr7ZKsX42jdL0kr1B5FKUeqJvAn51jzQ==}
     hasBin: true
+    dev: false
+
+  /qs@6.12.1:
+    resolution: {integrity: sha512-zWmv4RSuB9r2mYQw3zxQuHWeU+42aKi1wWig/j4ele4ygELZ7PEO6MM7rim9oAQH2A5MWfsAVf/jPvTPgCbvUQ==}
+    engines: {node: '>=0.6'}
+    dependencies:
+      side-channel: 1.0.6
     dev: false
 
   /query-string@7.1.3:
