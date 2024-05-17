@@ -1,7 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DummyScreen } from '@/components/screens';
-import { TabNavigatorIcon, type TabNavigatorIconName } from '@/components/ui';
+import {
+  TabNavigatorIcon,
+  type TabNavigatorIconName,
+  MainHeader,
+} from '@/components';
+import { tokens } from '@/ui/themes';
 import { AuthStackComponent } from '../AuthStack';
 import { MainTabParamList } from './MainTab.type';
 
@@ -12,8 +17,8 @@ export const MainTabComponent: React.FC = () => {
     <MainTab.Navigator
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
-        tabBarActiveTintColor: 'white',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: tokens.st.color.white,
+        tabBarInactiveTintColor: tokens.st.color.gray[100],
         tabBarIcon: ({ color }) => {
           let iconName: TabNavigatorIconName;
           switch (route.name) {
@@ -34,12 +39,21 @@ export const MainTabComponent: React.FC = () => {
           return <TabNavigatorIcon name={iconName} size={28} color={color} />;
         },
         tabBarStyle: {
-          backgroundColor: 'black',
+          backgroundColor: tokens.st.color.black,
           paddingTop: 10,
+          borderTopWidth: 0,
+          elevation: 0,
+          shadowOpacity: 0,
         },
       })}
     >
-      <MainTab.Screen name="MainScreen" component={DummyScreen} />
+      <MainTab.Screen
+        name="MainScreen"
+        component={DummyScreen}
+        options={{
+          header: () => <MainHeader />,
+        }}
+      />
       <MainTab.Screen name="SearchScreen" component={DummyScreen} />
       <MainTab.Screen
         name="SubmitScreen"
