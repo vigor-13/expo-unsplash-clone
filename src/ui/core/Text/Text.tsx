@@ -7,7 +7,7 @@ import {
 import { tokens } from '@/ui/themes';
 
 export interface TextProps extends RawTextProps {
-  variant?: 'headerTitle';
+  variant?: 'headerTitle' | 'tabItem';
 }
 
 export const Text: React.FC<TextProps> = (props) => {
@@ -18,6 +18,7 @@ export const Text: React.FC<TextProps> = (props) => {
       style={[
         styles.common,
         variant === 'headerTitle' && styles.headerTitle,
+        variant === 'tabItem' && styles.tabItem,
         style,
       ]}
       {...rest}
@@ -35,5 +36,9 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: tokens.st.font.size.xl,
     fontWeight: tokens.st.font.weight.bold as any,
+  },
+  tabItem: {
+    fontSize: tokens.st.font.size.sm,
+    fontWeight: tokens.st.font.weight.semiBold as any,
   },
 });
