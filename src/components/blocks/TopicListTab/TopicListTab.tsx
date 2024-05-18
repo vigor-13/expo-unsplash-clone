@@ -14,14 +14,7 @@ export const TopicListTab: React.FC = () => {
   const renderButton = ({ item: topic }: any) => {
     return (
       <TouchableWithoutFeedback key={topic.id}>
-        <Text
-          variant="tabItem"
-          style={{
-            color: tokens.st.color.gray[100],
-          }}
-        >
-          {topic.title}
-        </Text>
+        <Text variant="tabItem">{topic.title}</Text>
       </TouchableWithoutFeedback>
     );
   };
@@ -43,7 +36,7 @@ export const TopicListTab: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.3,
     borderColor: tokens.st.color.gray[100],
   },
   scrollContainer: {

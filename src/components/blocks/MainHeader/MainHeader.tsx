@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Text } from '@/ui';
 import { Logo } from '@/components/blocks/Logo';
 import { TopicListTab } from '@/components/blocks/TopicListTab';
@@ -10,7 +11,12 @@ export const MainHeader: React.FC = () => {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <LinearGradient
+      colors={['#000', 'transparent']}
+      start={{ x: 0, y: 0.3 }}
+      end={{ x: 0, y: 1 }}
+      style={[styles.container, { paddingTop: insets.top }]}
+    >
       <View style={styles.headerContainer}>
         <View style={styles.headerChild}>
           <TouchableOpacity>
@@ -25,7 +31,7 @@ export const MainHeader: React.FC = () => {
       <View>
         <TopicListTab />
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -33,6 +39,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     position: 'absolute',
+    paddingBottom: tokens.st.space[125],
   },
   headerContainer: {
     justifyContent: 'space-between',
