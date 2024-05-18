@@ -5,12 +5,11 @@ import {
   View,
   FlatList,
 } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
-import { getTopicOptions } from '@/services/query';
 import { Text, tokens } from '@/ui';
+import { useTopicList } from '@/hooks';
 
 export const TopicListTab: React.FC = () => {
-  const query = useQuery(getTopicOptions());
+  const { list } = useTopicList();
 
   const renderButton = ({ item: topic }: any) => {
     return (
@@ -30,7 +29,7 @@ export const TopicListTab: React.FC = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={query.data}
+        data={list}
         renderItem={renderButton}
         keyExtractor={(item) => item.id}
         horizontal

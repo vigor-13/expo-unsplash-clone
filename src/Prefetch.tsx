@@ -1,8 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import { useQueries } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { getTopicOptions } from '@/services/query';
+import { getPhotos } from '@/services/api';
 
 export interface PrefetchProps {
   children: React.ReactNode;
@@ -10,22 +11,38 @@ export interface PrefetchProps {
 
 export const Prefetch: React.FC<PrefetchProps> = (props) => {
   const { children } = props;
+  const queryClient = useQueryClient();
   const [appIsReady, setAppIsReady] = React.useState(false);
 
   const onLayoutRootView = React.useCallback(async () => {
     if (appIsReady) await SplashScreen.hideAsync();
   }, [appIsReady]);
 
-  const queries = useQueries({
-    queries: [getTopicOptions()],
-  });
+  const prefetch = React.useCallback(async () => {
+    await queryClient.prefetchQuery(getTopicOptions());
+    await queryClient.prefetchInfiniteQuery({
+      queryKey: ['photos'],
+      queryFn: async ({ pageParam }) => {
+        const response = await getPhotos({ page: pageParam });
+        return response;
+      },
+      getNextPageParam: (lastPage, _allPages, lastPageParam) => {
+        if (lastPage.data.length === 0) return;
+        return lastPageParam + 1;
+      },
+      initialPageParam: 1,
+      pages: 1,
+    });
+
+    setAppIsReady(true);
+  }, [queryClient]);
 
   React.useEffect(() => {
-    const result = queries.filter((v) => !v.isPending);
-    if (result.length > 0) setAppIsReady(true);
-  }, [queries]);
+    prefetch();
+  }, [prefetch]);
 
   if (!appIsReady) return null;
+
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       {children}

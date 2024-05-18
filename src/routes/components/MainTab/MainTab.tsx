@@ -1,11 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { DummyScreen } from '@/components/screens';
+import { DummyScreen } from '@/components/screens/DummyScreen';
+import { MainScreen } from '@/components/screens/MainScreen';
 import {
   TabNavigatorIcon,
   type TabNavigatorIconName,
-  MainHeader,
-} from '@/components';
+} from '@/components/blocks/TabNavigatorIcon';
+import { MainHeader } from '@/components/blocks/MainHeader';
 import { tokens } from '@/ui/themes';
 import { AuthStackComponent } from '../AuthStack';
 import { MainTabParamList } from './MainTab.type';
@@ -49,7 +50,7 @@ export const MainTabComponent: React.FC = () => {
     >
       <MainTab.Screen
         name="MainScreen"
-        component={DummyScreen}
+        component={MainScreen}
         options={{
           header: () => <MainHeader />,
         }}

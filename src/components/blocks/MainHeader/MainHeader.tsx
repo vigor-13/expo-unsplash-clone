@@ -2,15 +2,16 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text } from '@/ui';
-import { Logo, TopicListTab } from '@/components';
+import { Logo } from '@/components/blocks/Logo';
+import { TopicListTab } from '@/components/blocks/TopicListTab';
 import { tokens } from '@/ui/themes';
 
 export const MainHeader: React.FC = () => {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.headerContainer, { paddingTop: insets.top }]}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
+      <View style={styles.headerContainer}>
         <View style={styles.headerChild}>
           <TouchableOpacity>
             <Logo />
