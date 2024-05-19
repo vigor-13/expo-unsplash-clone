@@ -1,18 +1,11 @@
 import React from 'react';
-import {
-  FlatList,
-  View,
-  Image,
-  Dimensions,
-  FlatListProps,
-  StyleSheet,
-} from 'react-native';
-import { Photo } from '@/services';
+import { FlatList, FlatListProps, StyleSheet } from 'react-native';
 import { Spinner } from '@/ui/core';
-const screenWidth = Dimensions.get('window').width;
+import { PhotoCard } from '@/components/blocks/PhotoCard';
+import { PhotoData } from '@/dto';
 
 export interface PhotoListProps
-  extends Omit<FlatListProps<Photo>, 'renderItem'> {}
+  extends Omit<FlatListProps<PhotoData>, 'renderItem'> {}
 
 export const PhotoList = React.forwardRef<FlatList, PhotoListProps>(
   (props, ref) => {
@@ -23,24 +16,7 @@ export const PhotoList = React.forwardRef<FlatList, PhotoListProps>(
         ref={ref}
         data={data}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-          const aspectRatio = item.width / item.height;
-          const displayWidth = screenWidth;
-          const displayHeight = displayWidth / aspectRatio;
-
-          return (
-            <View>
-              <Image
-                source={{ uri: item.urls.regular }}
-                style={{
-                  width: '100%',
-                  height: displayHeight,
-                  resizeMode: 'contain',
-                }}
-              />
-            </View>
-          );
-        }}
+        renderItem={({ item }) => <PhotoCard data={item} />}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         ListFooterComponent={() => <Spinner style={styles.spinner} />}

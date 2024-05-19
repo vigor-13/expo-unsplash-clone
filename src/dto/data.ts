@@ -1,3 +1,5 @@
+import { Photo } from '@/services';
+
 export interface TopicData {
   id: string;
   title: string;
@@ -9,3 +11,5 @@ export const DEFAULT_TOPIC_DATA: TopicData = {
   title: 'Editorial',
   slug: 'editorial',
 };
+
+export type PhotoData = Photo;
