@@ -1,38 +1,24 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { tokens } from '@/ui/themes';
-import { useTopicList } from '@/hooks';
+import { useTopics, useFlatListScroll } from '@/hooks';
 import { TopicTabButton } from '@/components/blocks/TopicTabButton';
-import { useTopicStore } from '@/stores';
 
 export const TopicListTab: React.FC = () => {
-  const flatListRef = React.useRef<FlatList>(null);
-  const { list } = useTopicList();
-  const { currentTopic, setCurrentTopic } = useTopicStore((state) => state);
-  if (!currentTopic) setCurrentTopic(list[0].id);
-
-  const scrollToItem = (index: number) => {
-    if (flatListRef.current) {
-      const viewPosition = 0.5;
-      flatListRef.current.scrollToIndex({
-        index,
-        animated: true,
-        viewPosition,
-      });
-    }
-  };
+  const { list: topics, activeTopic, setActiveTopic } = useTopics();
+  const { flatListRef, scrollToItem } = useFlatListScroll();
 
   return (
     <View style={styles.container}>
       <FlatList
         ref={flatListRef}
-        data={list}
+        data={topics}
         renderItem={({ item, index }) => (
           <TopicTabButton
             text={item.title}
-            active={item.id === currentTopic}
+            active={item.id === activeTopic?.id}
             onPress={() => {
-              setCurrentTopic(item.id);
+              setActiveTopic(item);
               scrollToItem(index);
             }}
           />

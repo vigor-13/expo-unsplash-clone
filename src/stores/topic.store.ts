@@ -1,20 +1,22 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import {} from '@/components/blocks/TopicTabButton';
+import { DEFAULT_TOPIC_DATA, TopicData } from '@/dto';
 
 export interface TopicState {
-  currentTopic: string | null;
+  activeTopic: TopicData;
 }
 
 export interface TopicAction {
-  setCurrentTopic: (id: string) => void;
+  setActiveTopic: (id: TopicData) => void;
 }
 
 export const useTopicStore = create<TopicState & TopicAction>()(
   immer((set) => ({
-    currentTopic: null,
-    setCurrentTopic: (id) => {
+    activeTopic: DEFAULT_TOPIC_DATA,
+    setActiveTopic: (topic) => {
       set((state) => {
-        state.currentTopic = id;
+        state.activeTopic = topic;
       });
     },
   })),

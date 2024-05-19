@@ -1,7 +1,8 @@
 import { infiniteQueryOptions } from '@tanstack/react-query';
 import { getPhotos } from '@/services/api';
+import { DEFAULT_TOPIC_DATA } from '@/dto';
 
-export const getPhotosOptions = () => {
+export const getPhotosOptions = (slug: string) => {
   return infiniteQueryOptions({
     queryKey: ['photos'],
     queryFn: async ({ pageParam }) => {
@@ -24,5 +25,6 @@ export const getPhotosOptions = () => {
       if (lastPage.data.length === 0) return;
       return lastPageParam + 1;
     },
+    enabled: slug === DEFAULT_TOPIC_DATA.slug,
   });
 };

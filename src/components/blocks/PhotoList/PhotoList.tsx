@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View, Image, Dimensions, FlatListProps } from 'react-native';
 import { Photo } from '@/services';
-import { Text } from '@/ui';
+import { useFlatListScroll } from '@/hooks';
 const screenWidth = Dimensions.get('window').width;
 
 export interface PhotoListProps
@@ -9,9 +9,15 @@ export interface PhotoListProps
 
 export const PhotoList: React.FC<PhotoListProps> = (props) => {
   const { data, onEndReached } = props;
+  const { flatListRef, scrollToTop } = useFlatListScroll();
+
+  React.useEffect(() => {
+    scrollToTop();
+  }, [scrollToTop]);
 
   return (
     <FlatList
+      ref={flatListRef}
       data={data}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => {
