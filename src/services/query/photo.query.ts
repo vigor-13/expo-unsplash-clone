@@ -1,5 +1,5 @@
-import { infiniteQueryOptions } from '@tanstack/react-query';
-import { getPhotos } from '@/services/api';
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
+import { getPhotos, getRandomPhoto } from '@/services/api';
 import { DEFAULT_TOPIC_DATA } from '@/dto';
 
 export const getPhotosOptions = (slug: string) => {
@@ -26,5 +26,18 @@ export const getPhotosOptions = (slug: string) => {
       return lastPageParam + 1;
     },
     enabled: slug === DEFAULT_TOPIC_DATA.slug,
+  });
+};
+
+export const getRandomPhotoOptions = () => {
+  return queryOptions({
+    queryKey: ['getRandomPhoto'],
+    queryFn: async () => {
+      const response = await getRandomPhoto();
+      return response;
+    },
+    select: (data) => {
+      return data.data;
+    },
   });
 };

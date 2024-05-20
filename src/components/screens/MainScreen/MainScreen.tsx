@@ -2,17 +2,20 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PhotoList } from '@/components/blocks/PhotoList';
-import { usePhotos, useTopicsPhotos } from '@/hooks';
+import { PhotoListHeader } from '@/components/blocks/PhotoListHeader';
+import { PhotoListTopicHeader } from '@/components/blocks/PhotoListTopicHeader';
+import { usePhotos, useRandomPhoto, useTopicsPhotos } from '@/hooks';
 import { useTopicStore } from '@/stores';
 import { DEFAULT_TOPIC_DATA } from '@/dto';
 import { useScrollToTopOnTopicChange } from './useScrollToTopOnTopicChange';
 
 export const MainScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
+  const { flatListRef } = useScrollToTopOnTopicChange();
+  const { activeTopic } = useTopicStore((state) => state);
+  const { data: randomPhoto } = useRandomPhoto();
   const { query: photosQuery, list: photos } = usePhotos();
   const { query: topicsPhotosQuery, list: topicsPhotos } = useTopicsPhotos();
-  const { activeTopic } = useTopicStore((state) => state);
-  const { flatListRef } = useScrollToTopOnTopicChange();
 
   return activeTopic.slug === DEFAULT_TOPIC_DATA.slug ? (
     <View style={[{ paddingTop: insets.top }]}>
@@ -22,6 +25,9 @@ export const MainScreen: React.FC = () => {
         onEndReached={() => {
           photosQuery.fetchNextPage();
         }}
+        ListHeaderComponent={() =>
+          randomPhoto && <PhotoListHeader data={randomPhoto} />
+        }
       />
     </View>
   ) : (
@@ -32,6 +38,9 @@ export const MainScreen: React.FC = () => {
         onEndReached={() => {
           topicsPhotosQuery.fetchNextPage();
         }}
+        ListHeaderComponent={() =>
+          activeTopic && <PhotoListTopicHeader data={activeTopic} />
+        }
       />
     </View>
   );

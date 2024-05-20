@@ -19,7 +19,7 @@ export const MainTabComponent: React.FC = () => {
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         tabBarActiveTintColor: tokens.st.color.white,
-        tabBarInactiveTintColor: tokens.st.color.gray[100],
+        tabBarInactiveTintColor: tokens.st.color.neutral[500],
         tabBarIcon: ({ color }) => {
           let iconName: TabNavigatorIconName;
           switch (route.name) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useQueryClient } from '@tanstack/react-query';
-import { getTopicOptions } from '@/services/query';
+import { getTopicsOptions, getRandomPhotoOptions } from '@/services/query';
 import { getPhotos } from '@/services/api';
 
 export interface PrefetchProps {
@@ -19,7 +19,8 @@ export const Prefetch: React.FC<PrefetchProps> = (props) => {
   }, [appIsReady]);
 
   const prefetch = React.useCallback(async () => {
-    await queryClient.prefetchQuery(getTopicOptions());
+    await queryClient.prefetchQuery(getRandomPhotoOptions());
+    await queryClient.prefetchQuery(getTopicsOptions());
     await queryClient.prefetchInfiniteQuery({
       queryKey: ['photos'],
       queryFn: async ({ pageParam }) => {

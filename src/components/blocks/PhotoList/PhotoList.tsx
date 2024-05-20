@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, FlatListProps, StyleSheet } from 'react-native';
-import { Spinner } from '@/ui/core';
+import { Spinner } from '@/ui';
 import { PhotoCard } from '@/components/blocks/PhotoCard';
 import { PhotoData } from '@/dto';
 
@@ -9,7 +9,7 @@ export interface PhotoListProps
 
 export const PhotoList = React.forwardRef<FlatList, PhotoListProps>(
   (props, ref) => {
-    const { data, onEndReached } = props;
+    const { data, onEndReached, ListHeaderComponent } = props;
 
     return (
       <FlatList
@@ -19,6 +19,7 @@ export const PhotoList = React.forwardRef<FlatList, PhotoListProps>(
         renderItem={({ item }) => <PhotoCard data={item} />}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
+        ListHeaderComponent={ListHeaderComponent}
         ListFooterComponent={() => <Spinner style={styles.spinner} />}
       />
     );
@@ -28,6 +29,6 @@ PhotoList.displayName = 'PhotoList';
 
 const styles = StyleSheet.create({
   spinner: {
-    paddingTop: 50,
+    paddingVertical: 40,
   },
 });

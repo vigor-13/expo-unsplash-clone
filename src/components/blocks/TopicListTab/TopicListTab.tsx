@@ -5,8 +5,8 @@ import { useTopics, useFlatListScroll } from '@/hooks';
 import { TopicTabButton } from '@/components/blocks/TopicTabButton';
 
 export const TopicListTab: React.FC = () => {
-  const { list: topics, activeTopic, setActiveTopic } = useTopics();
   const { flatListRef, scrollToItem } = useFlatListScroll();
+  const { list: topics, activeTopic, setActiveTopic } = useTopics();
 
   return (
     <View style={styles.container}>
@@ -36,7 +36,7 @@ export const TopicListTab: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 0.5,
-    borderColor: tokens.st.color.gray[100],
+    borderColor: tokens.st.color.neutral[500],
   },
   scrollContainer: {
     paddingHorizontal: tokens.st.space[150],

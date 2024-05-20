@@ -1,15 +1,10 @@
-import { Photo } from '@/services';
+import { Photo, Topic } from '@/services';
 
-export interface TopicData {
-  id: string;
-  title: string;
-  slug: string;
-}
+export type TopicData = Topic;
+export type PhotoData = Photo;
 
-export const DEFAULT_TOPIC_DATA: TopicData = {
+export const DEFAULT_TOPIC_DATA = {
   id: 'editorial',
   title: 'Editorial',
   slug: 'editorial',
-};
-
-export type PhotoData = Photo;
+} as TopicData;

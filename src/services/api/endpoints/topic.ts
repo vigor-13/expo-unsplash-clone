@@ -11,6 +11,16 @@ export const getTopics = () => {
 };
 
 /**
+ * Docs: https://unsplash.com/documentation#get-a-topic
+ */
+// export const getTopic = (params: GetTopicParams) => {
+//   return unsplashApi.get<TopicDetail>(`/topics/${params}`);
+// };
+// export interface GetTopicParams {
+//   idOrSlug: string;
+// }
+
+/**
  * Docs: https://unsplash.com/documentation#get-a-topics-photos
  */
 export const getTopicsPhotos = (params: GetTopicsPhotosParams) => {

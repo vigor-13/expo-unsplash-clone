@@ -17,3 +17,10 @@ export interface GetPhotosParams {
   page: number;
   per_page?: number;
 }
+
+/**
+ * Docs: https://unsplash.com/documentation#get-a-random-photo
+ */
+export const getRandomPhoto = () => {
+  return unsplashApi.get<Photo>(`/photos/random`, {});
+};

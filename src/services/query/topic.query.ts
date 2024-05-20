@@ -2,7 +2,7 @@ import { queryOptions, infiniteQueryOptions } from '@tanstack/react-query';
 import { getTopics, getTopicsPhotos } from '@/services/api';
 import { DEFAULT_TOPIC_DATA } from '@/dto';
 
-export const getTopicOptions = () => {
+export const getTopicsOptions = () => {
   return queryOptions({
     queryKey: ['getTopics'],
     queryFn: async () => {
