@@ -12,6 +12,7 @@ export interface TextProps extends RawTextProps {
     | 'tabItem'
     | 'photoCardUserName'
     | 'photoCardTitle'
+    | 'photoCardTopicTitle'
     | 'photoCardTopicSubject'
     | 'photoCardTopicDesc';
 }
@@ -27,6 +28,7 @@ export const Text: React.FC<TextProps> = (props) => {
         variant === 'tabItem' && styles.tabItem,
         variant === 'photoCardUserName' && styles.photoCardUserName,
         variant === 'photoCardTitle' && styles.photoCardTitle,
+        variant === 'photoCardTopicTitle' && styles.photoCardTopicTitle,
         variant === 'photoCardTopicSubject' && styles.photoCardTopicSubject,
         variant === 'photoCardTopicDesc' && styles.photoCardTopicDesc,
         style,
@@ -59,14 +61,18 @@ const styles = StyleSheet.create({
     fontSize: tokens.st.font.size.xl2,
     fontWeight: tokens.st.font.weight.bold as any,
   },
-  photoCardTopicSubject: {
+  photoCardTopicTitle: {
     fontSize: tokens.st.font.size.xl,
+    fontWeight: tokens.st.font.weight.semiBold as any,
+  },
+  photoCardTopicSubject: {
+    fontSize: tokens.st.font.size.base,
     fontWeight: tokens.st.font.weight.semiBold as any,
   },
   photoCardTopicDesc: {
     fontSize: tokens.st.font.size.sm,
     fontWeight: tokens.st.font.weight.medium as any,
-    color: tokens.st.color.neutral[300],
+    color: tokens.st.color.neutral[400],
     lineHeight: 20,
   },
 });

@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 1,
     paddingBottom: tokens.st.space[125],
   },
   headerContainer: {

@@ -7,12 +7,13 @@ import { Text, Button, tokens, Overlay } from '@/ui';
 
 export interface PhotoListTopicHeaderProps {
   data: TopicData;
+  onPress: () => void;
 }
 
 export const PhotoListTopicHeader: React.FC<PhotoListTopicHeaderProps> = (
   props,
 ) => {
-  const { data } = props;
+  const { data, onPress } = props;
   const displayHeight = getHeightByScreenRatio(0.42);
 
   return (
@@ -25,18 +26,18 @@ export const PhotoListTopicHeader: React.FC<PhotoListTopicHeaderProps> = (
         <BlurView intensity={80} style={styles.blurView}>
           <Overlay>
             <View style={styles.contentContainer}>
-              <Text variant="photoCardTopicSubject">{data.title}</Text>
+              <Text variant="photoCardTopicTitle">{data.title}</Text>
               <View style={styles.textContainer}>
                 <Text variant="photoCardTopicDesc" numberOfLines={2}>
                   {data.description}
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onPress}>
                   <Text variant="photoCardTopicDesc" style={styles.moreText}>
                     더보기
                   </Text>
                 </TouchableOpacity>
               </View>
-              <Button text="사진 제출" />
+              <Button size="sm" text="사진 제출" onPress={onPress} />
             </View>
           </Overlay>
         </BlurView>

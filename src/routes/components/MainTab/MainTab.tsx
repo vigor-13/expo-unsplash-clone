@@ -6,7 +6,6 @@ import {
   TabNavigatorIcon,
   type TabNavigatorIconName,
 } from '@/components/blocks/TabNavigatorIcon';
-import { MainHeader } from '@/components/blocks/MainHeader';
 import { tokens } from '@/ui/themes';
 import { AuthStackComponent } from '../AuthStack';
 import { MainTabParamList } from './MainTab.type';
@@ -52,7 +51,7 @@ export const MainTabComponent: React.FC = () => {
         name="MainScreen"
         component={MainScreen}
         options={{
-          header: () => <MainHeader />,
+          headerShown: false,
         }}
       />
       <MainTab.Screen name="SearchScreen" component={DummyScreen} />
