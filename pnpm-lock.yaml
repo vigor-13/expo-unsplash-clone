@@ -37,6 +37,9 @@ dependencies:
   expo-font:
     specifier: ~12.0.5
     version: 12.0.5(expo@51.0.7)
+  expo-image:
+    specifier: ~1.12.9
+    version: 1.12.9(expo@51.0.7)
   expo-linear-gradient:
     specifier: ~13.0.2
     version: 13.0.2(expo@51.0.7)
@@ -4726,6 +4729,15 @@ packages:
     dependencies:
       expo: 51.0.7(@babel/core@7.24.5)(@babel/preset-env@7.24.5)
       fontfaceobserver: 2.3.0
+    dev: false
+
+  /expo-image@1.12.9(expo@51.0.7):
+    resolution: {integrity: sha512-WnC3Z3vsOTJLWE9FGB0a0GANmkpfBCqTf9bSLXXl50hEYiRcfwrAYZ/87oswAhggMGbJqOuLKZxt5rtuij1xcQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@react-native/assets-registry': 0.74.83
+      expo: 51.0.7(@babel/core@7.24.5)(@babel/preset-env@7.24.5)
     dev: false
 
   /expo-keep-awake@13.0.2(expo@51.0.7):

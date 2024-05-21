@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { PhotoData } from '@/dto';
 import { getDisplayHeight } from '@/libs';
 import { tokens } from '@/ui/themes';
-import { Text } from '@/ui';
+import { Text, Image } from '@/ui';
 
 export interface PhotoCardProps {
   data: PhotoData;
@@ -19,7 +19,9 @@ export const PhotoCard: React.FC<PhotoCardProps> = (props) => {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: data.urls.regular }}
+        source={data.urls.regular}
+        contentFit="cover"
+        transition={300}
         style={[
           styles.image,
           {

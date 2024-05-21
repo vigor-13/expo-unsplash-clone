@@ -1,8 +1,8 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { PhotoData } from '@/dto';
 import { getHeightByScreenRatio } from '@/libs';
-import { Overlay, Text, tokens } from '@/ui';
+import { Overlay, Text, Image, tokens } from '@/ui';
 
 export interface PhotoListHeaderProps {
   data: PhotoData;
@@ -16,7 +16,9 @@ export const PhotoListHeader: React.FC<PhotoListHeaderProps> = (props) => {
     <View style={styles.container}>
       <View>
         <Image
-          source={{ uri: data.urls.regular }}
+          source={data.urls.regular}
+          contentFit="cover"
+          transition={300}
           style={[styles.image, { height: displayHeight }]}
         />
         <Overlay style={styles.overlay}>

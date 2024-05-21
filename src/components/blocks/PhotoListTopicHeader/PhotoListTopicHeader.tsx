@@ -1,9 +1,9 @@
 import React from 'react';
-import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { TopicData } from '@/dto';
 import { getHeightByScreenRatio } from '@/libs';
-import { Text, Button, tokens, Overlay } from '@/ui';
+import { Text, Button, tokens, Overlay, Image } from '@/ui';
 
 export interface PhotoListTopicHeaderProps {
   data: TopicData;
@@ -20,7 +20,9 @@ export const PhotoListTopicHeader: React.FC<PhotoListTopicHeaderProps> = (
     <View style={styles.container}>
       <View style={styles.blurViewContainer}>
         <Image
-          source={{ uri: data.cover_photo.urls.regular }}
+          source={data.cover_photo.urls.regular}
+          contentFit="cover"
+          transition={300}
           style={[styles.image, { height: displayHeight }]}
         />
         <BlurView intensity={80} style={styles.blurView}>
