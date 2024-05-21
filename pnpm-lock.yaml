@@ -25,15 +25,24 @@ dependencies:
   expo:
     specifier: ~51.0.7
     version: 51.0.7(@babel/core@7.24.5)(@babel/preset-env@7.24.5)
+  expo-application:
+    specifier: ~5.9.1
+    version: 5.9.1(expo@51.0.7)
   expo-blur:
     specifier: ~13.0.2
     version: 13.0.2(expo@51.0.7)
+  expo-constants:
+    specifier: ~16.0.1
+    version: 16.0.1(expo@51.0.7)
   expo-font:
     specifier: ~12.0.5
     version: 12.0.5(expo@51.0.7)
   expo-linear-gradient:
     specifier: ~13.0.2
     version: 13.0.2(expo@51.0.7)
+  expo-linking:
+    specifier: ~6.3.1
+    version: 6.3.1(expo@51.0.7)
   expo-splash-screen:
     specifier: ~0.27.4
     version: 0.27.4(expo-modules-autolinking@1.11.1)(expo@51.0.7)
@@ -4661,6 +4670,14 @@ packages:
       strip-final-newline: 2.0.0
     dev: false
 
+  /expo-application@5.9.1(expo@51.0.7):
+    resolution: {integrity: sha512-uAfLBNZNahnDZLRU41ZFmNSKtetHUT9Ua557/q189ua0AWV7pQjoVAx49E4953feuvqc9swtU3ScZ/hN1XO/FQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 51.0.7(@babel/core@7.24.5)(@babel/preset-env@7.24.5)
+    dev: false
+
   /expo-asset@10.0.6(expo@51.0.7):
     resolution: {integrity: sha512-waP73/ccn/HZNNcGM4/s3X3icKjSSbEQ9mwc6tX34oYNg+XE5WdwOuZ9wgVVFrU7wZMitq22lQXd2/O0db8bxg==}
     peerDependencies:
@@ -4725,6 +4742,16 @@ packages:
       expo: '*'
     dependencies:
       expo: 51.0.7(@babel/core@7.24.5)(@babel/preset-env@7.24.5)
+    dev: false
+
+  /expo-linking@6.3.1(expo@51.0.7):
+    resolution: {integrity: sha512-xuZCntSBGWCD/95iZ+mTUGTwHdy8Sx+immCqbUBxdvZ2TN61P02kKg7SaLS8A4a/hLrSCwrg5tMMwu5wfKr35g==}
+    dependencies:
+      expo-constants: 16.0.1(expo@51.0.7)
+      invariant: 2.2.4
+    transitivePeerDependencies:
+      - expo
+      - supports-color
     dev: false
 
   /expo-modules-autolinking@1.11.1:

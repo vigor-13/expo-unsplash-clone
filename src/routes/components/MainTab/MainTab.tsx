@@ -39,7 +39,7 @@ export const MainTabComponent: React.FC = () => {
           return <TabNavigatorIcon name={iconName} size={28} color={color} />;
         },
         tabBarStyle: {
-          backgroundColor: tokens.st.color.black,
+          backgroundColor: tokens.st.color.neutral[950],
           paddingTop: 10,
           borderTopWidth: 0,
           elevation: 0,

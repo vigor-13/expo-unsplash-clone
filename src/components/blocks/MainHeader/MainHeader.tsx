@@ -1,25 +1,33 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text } from '@/ui';
 import { Logo } from '@/components/blocks/Logo';
 import { TopicListTab } from '@/components/blocks/TopicListTab';
 import { tokens } from '@/ui/themes';
+import { RootStackParamList } from '@/routes/components';
 
 export const MainHeader: React.FC = () => {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const openAppInfoModal = () => {
+    navigation.navigate('AppInfoScreen');
+  };
 
   return (
     <LinearGradient
-      colors={['#000', 'transparent']}
+      colors={[tokens.st.color.neutral[950], 'transparent']}
       start={{ x: 0, y: 0.3 }}
       end={{ x: 0, y: 1 }}
       style={[styles.container, { paddingTop: insets.top }]}
     >
       <View style={styles.headerContainer}>
         <View style={styles.headerChild}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={openAppInfoModal}>
             <Logo />
           </TouchableOpacity>
         </View>

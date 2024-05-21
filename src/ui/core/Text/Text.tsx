@@ -8,13 +8,15 @@ import { tokens } from '@/ui/themes';
 
 export interface TextProps extends RawTextProps {
   variant?:
+    | 'info'
     | 'headerTitle'
     | 'tabItem'
     | 'photoCardUserName'
     | 'photoCardTitle'
     | 'photoCardTopicTitle'
     | 'photoCardTopicSubject'
-    | 'photoCardTopicDesc';
+    | 'photoCardTopicDesc'
+    | 'modalCloseText';
 }
 
 export const Text: React.FC<TextProps> = (props) => {
@@ -24,6 +26,7 @@ export const Text: React.FC<TextProps> = (props) => {
     <RawText
       style={[
         styles.common,
+        variant === 'info' && styles.info,
         variant === 'headerTitle' && styles.headerTitle,
         variant === 'tabItem' && styles.tabItem,
         variant === 'photoCardUserName' && styles.photoCardUserName,
@@ -31,6 +34,7 @@ export const Text: React.FC<TextProps> = (props) => {
         variant === 'photoCardTopicTitle' && styles.photoCardTopicTitle,
         variant === 'photoCardTopicSubject' && styles.photoCardTopicSubject,
         variant === 'photoCardTopicDesc' && styles.photoCardTopicDesc,
+        variant === 'modalCloseText' && styles.modalCloseText,
         style,
       ]}
       {...rest}
@@ -45,9 +49,15 @@ const styles = StyleSheet.create({
     fontSize: tokens.st.font.size.base,
     fontWeight: tokens.st.font.weight.regular as any,
   },
+  info: {
+    fontSize: tokens.st.font.size.xs,
+    fontWeight: tokens.st.font.weight.regular as any,
+    color: tokens.st.color.neutral[400],
+  },
   headerTitle: {
     fontSize: tokens.st.font.size.xl,
     fontWeight: tokens.st.font.weight.bold as any,
+    lineHeight: tokens.st.font.size.xl,
   },
   tabItem: {
     fontSize: tokens.st.font.size.sm,
@@ -74,5 +84,8 @@ const styles = StyleSheet.create({
     fontWeight: tokens.st.font.weight.medium as any,
     color: tokens.st.color.neutral[400],
     lineHeight: 20,
+  },
+  modalCloseText: {
+    fontWeight: tokens.st.font.weight.semiBold as any,
   },
 });
