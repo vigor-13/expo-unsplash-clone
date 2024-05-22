@@ -7,19 +7,17 @@ export const useAnimatedSearchBar = () => {
   const buttonTranslateX = React.useRef(new Animated.Value(40)).current;
   const buttonOpacity = React.useRef(new Animated.Value(0)).current;
 
-  const onFocus = () => {
+  const onFocusAnimation = () => {
     Animated.timing(buttonOpacity, {
       toValue: 1,
       duration,
       useNativeDriver: true,
     }).start();
-
     Animated.timing(inputWidth, {
       toValue: 0.85,
       duration,
       useNativeDriver: false,
     }).start();
-
     Animated.timing(buttonTranslateX, {
       toValue: 0,
       duration,
@@ -27,19 +25,17 @@ export const useAnimatedSearchBar = () => {
     }).start();
   };
 
-  const onBlur = () => {
+  const onBlurAnimation = () => {
     Animated.timing(buttonOpacity, {
       toValue: 0,
       duration,
       useNativeDriver: true,
     }).start();
-
     Animated.timing(inputWidth, {
       toValue: 1,
       duration,
       useNativeDriver: false,
     }).start();
-
     Animated.timing(buttonTranslateX, {
       toValue: 40,
       duration,
@@ -51,7 +47,7 @@ export const useAnimatedSearchBar = () => {
     inputWidth,
     buttonTranslateX,
     buttonOpacity,
-    onBlur,
-    onFocus,
+    onBlurAnimation,
+    onFocusAnimation,
   };
 };

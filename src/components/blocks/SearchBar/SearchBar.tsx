@@ -1,67 +1,76 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
   TextInput,
   TouchableOpacity,
-  Keyboard,
   Animated,
+  TextInputProps,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
 } from 'react-native';
 import { IconSearch } from '@tabler/icons-react-native';
 import { tokens, Text } from '@/ui';
 import { useAnimatedSearchBar } from './useAnimatedSearchBar';
 
-export const SearchBar: React.FC = () => {
-  const inputRef = useRef<TextInput>(null);
-  const [searchText, setSearchText] = React.useState('');
-  const { inputWidth, buttonOpacity, buttonTranslateX, onFocus, onBlur } =
-    useAnimatedSearchBar();
+export interface SearchBarProps extends TextInputProps {
+  onClose: () => void;
+}
 
-  const handleSearch = (text: string) => {
-    setSearchText(text);
-  };
+export const SearchBar = React.forwardRef<TextInput, SearchBarProps>(
+  (props, ref) => {
+    const { onClose, onFocus, onBlur, ...rest } = props;
+    const {
+      inputWidth,
+      buttonOpacity,
+      buttonTranslateX,
+      onFocusAnimation,
+      onBlurAnimation,
+    } = useAnimatedSearchBar();
 
-  const dismissKeyboard = () => {
-    setSearchText('');
-    Keyboard.dismiss();
-    inputRef.current?.blur();
-  };
+    const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      onFocusAnimation();
+      if (onFocus) onFocus(e);
+    };
+    const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      onBlurAnimation();
+    };
 
-  return (
-    <View style={styles.container}>
-      <Animated.View style={[styles.inputContainer, { flex: inputWidth }]}>
-        <IconSearch
-          style={styles.searchIcon}
-          size={20}
-          color={tokens.st.color.neutral[400]}
-        />
-        <TextInput
-          ref={inputRef}
-          placeholder="사진, 컬렉션, 사용자 검색"
-          placeholderTextColor={tokens.st.color.neutral[400]}
-          value={searchText}
-          style={styles.searchInput}
-          onChangeText={handleSearch}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
-      </Animated.View>
-      <Animated.View
-        style={[
-          styles.dissmissButtonContainer,
-          {
-            opacity: buttonOpacity,
-            transform: [{ translateX: buttonTranslateX }],
-          },
-        ]}
-      >
-        <TouchableOpacity onPress={dismissKeyboard}>
-          <Text variant="modalCloseText">취소</Text>
-        </TouchableOpacity>
-      </Animated.View>
-    </View>
-  );
-};
+    return (
+      <View style={styles.container}>
+        <Animated.View style={[styles.inputContainer, { flex: inputWidth }]}>
+          <IconSearch
+            style={styles.searchIcon}
+            size={20}
+            color={tokens.st.color.neutral[400]}
+          />
+          <TextInput
+            ref={ref}
+            placeholderTextColor={tokens.st.color.neutral[400]}
+            style={styles.searchInput}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            {...rest}
+          />
+        </Animated.View>
+        <Animated.View
+          style={[
+            styles.dissmissButtonContainer,
+            {
+              opacity: buttonOpacity,
+              transform: [{ translateX: buttonTranslateX }],
+            },
+          ]}
+        >
+          <TouchableOpacity onPress={onClose}>
+            <Text variant="modalCloseText">취소</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
+    );
+  },
+);
+SearchBar.displayName = 'SearchBar';
 
 const styles = StyleSheet.create({
   container: {
