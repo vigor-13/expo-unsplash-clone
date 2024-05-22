@@ -39,6 +39,7 @@ export const KeywordBoxList: React.FC<KeywordBoxListProps> = (props) => {
       <View>
         {item.map((keywordData: KeywordBoxData, subIndex: number) => (
           <KeywordBox
+            key={`${index}-${subIndex}`}
             data={keywordData}
             style={{
               width: itemWidth,
@@ -54,16 +55,16 @@ export const KeywordBoxList: React.FC<KeywordBoxListProps> = (props) => {
 
   return (
     <FlatList
-      horizontal
       data={groupedData}
       renderItem={renderRow}
       keyExtractor={(_, index) => index.toString()}
-      showsHorizontalScrollIndicator={false}
-      snapToAlignment={'start'}
+      snapToAlignment="start"
       snapToOffsets={[...Array(data.length)].map(
         (_, i) => i * (itemWidth + spacing) - nishhar * 0.15,
       )}
+      horizontal
       decelerationRate="fast"
+      showsHorizontalScrollIndicator={false}
       contentContainerStyle={containerStyle}
     />
   );
