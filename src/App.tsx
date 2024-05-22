@@ -31,7 +31,7 @@ export default function App() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: tokens.st.color.neutral[900],
+      background: tokens.st.color.neutral[950],
     },
   };
 

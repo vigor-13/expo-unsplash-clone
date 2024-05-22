@@ -35,7 +35,7 @@ export const AppInfoScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: tokens.st.color.neutral[900] },
   section: {
     marginTop: tokens.st.space[400],
     backgroundColor: tokens.st.color.neutral[800],
