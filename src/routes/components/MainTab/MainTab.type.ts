@@ -2,7 +2,7 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 export type MainTabParamList = {
   MainScreen: undefined;
-  SearchScreen: undefined;
+  SearchStack: undefined;
   SubmitScreen: undefined;
   AuthStack: undefined;
 };
