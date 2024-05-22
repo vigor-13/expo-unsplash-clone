@@ -10,6 +10,7 @@ export interface TextProps extends RawTextProps {
   variant?:
     | 'info'
     | 'headerTitle'
+    | 'sectionTitle'
     | 'tabItem'
     | 'photoCardUserName'
     | 'photoCardTitle'
@@ -28,6 +29,7 @@ export const Text: React.FC<TextProps> = (props) => {
         styles.common,
         variant === 'info' && styles.info,
         variant === 'headerTitle' && styles.headerTitle,
+        variant === 'sectionTitle' && styles.sectionTitle,
         variant === 'tabItem' && styles.tabItem,
         variant === 'photoCardUserName' && styles.photoCardUserName,
         variant === 'photoCardTitle' && styles.photoCardTitle,
@@ -58,6 +60,11 @@ const styles = StyleSheet.create({
     fontSize: tokens.st.font.size.xl,
     fontWeight: tokens.st.font.weight.bold as any,
     lineHeight: tokens.st.font.size.xl,
+  },
+  sectionTitle: {
+    fontSize: tokens.st.font.size.xl2,
+    fontWeight: tokens.st.font.weight.semiBold as any,
+    lineHeight: tokens.st.font.size.xl2,
   },
   tabItem: {
     fontSize: tokens.st.font.size.sm,
