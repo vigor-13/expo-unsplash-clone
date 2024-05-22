@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DummyScreen } from '@/components/screens/DummyScreen';
 import { MainScreen } from '@/components/screens/MainScreen';
 import { SearchScreen } from '@/components/screens/SearchScreen';
+import { SearchHeader } from '@/components/blocks/SearchHeader';
 import {
   TabNavigatorIcon,
   type TabNavigatorIconName,
@@ -17,7 +18,6 @@ export const MainTabComponent: React.FC = () => {
   return (
     <MainTab.Navigator
       screenOptions={({ route }) => ({
-        headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: tokens.st.color.white,
         tabBarInactiveTintColor: tokens.st.color.neutral[500],
@@ -49,10 +49,34 @@ export const MainTabComponent: React.FC = () => {
         },
       })}
     >
-      <MainTab.Screen name="MainScreen" component={MainScreen} />
-      <MainTab.Screen name="SearchScreen" component={SearchScreen} />
-      <MainTab.Screen name="SubmitScreen" component={DummyScreen} />
-      <MainTab.Screen name="AuthStack" component={AuthStackComponent} />
+      <MainTab.Screen
+        name="MainScreen"
+        component={MainScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <MainTab.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          header: () => <SearchHeader />,
+        }}
+      />
+      <MainTab.Screen
+        name="SubmitScreen"
+        component={DummyScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <MainTab.Screen
+        name="AuthStack"
+        component={AuthStackComponent}
+        options={{
+          headerShown: false,
+        }}
+      />
     </MainTab.Navigator>
   );
 };
