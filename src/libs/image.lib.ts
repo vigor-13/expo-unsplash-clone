@@ -3,8 +3,10 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 export const getDisplayHeight = (props: GetDisplayHeightProps) => {
-  const aspectRatio = props.width / props.height;
-  const displayWidth = screenWidth;
+  const { width, height, cols = 1 } = props;
+  const aspectRatio = width / height;
+  let displayWidth = screenWidth;
+  if (cols > 1) displayWidth = screenWidth / cols;
   const displayHeight = displayWidth / aspectRatio;
 
   return displayHeight;
@@ -12,6 +14,7 @@ export const getDisplayHeight = (props: GetDisplayHeightProps) => {
 export interface GetDisplayHeightProps {
   width: number;
   height: number;
+  cols?: number;
 }
 
 export const getHeightByScreenRatio = (ratio: number) => {

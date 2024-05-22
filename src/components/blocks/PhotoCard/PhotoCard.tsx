@@ -7,13 +7,15 @@ import { Text, Image } from '@/ui';
 
 export interface PhotoCardProps {
   data: PhotoData;
+  cols?: number;
 }
 
 export const PhotoCard: React.FC<PhotoCardProps> = (props) => {
-  const { data } = props;
+  const { data, cols = 1 } = props;
   const displayHeight = getDisplayHeight({
     width: data.width,
     height: data.height,
+    cols,
   });
 
   return (
