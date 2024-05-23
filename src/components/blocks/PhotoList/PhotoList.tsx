@@ -17,19 +17,17 @@ export const PhotoList = React.forwardRef<
 >((props, ref) => {
   const { data, numColumns, onEndReached, ListHeaderComponent } = props;
   return (
-    data && (
-      <MasonryFlashList
-        ref={ref as React.RefObject<any>}
-        numColumns={numColumns}
-        data={data}
-        estimatedItemSize={150}
-        renderItem={({ item }) => <PhotoCard data={item} cols={numColumns} />}
-        onEndReached={onEndReached}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={ListHeaderComponent}
-        ListFooterComponent={() => <Spinner style={styles.spinner} />}
-      />
-    )
+    <MasonryFlashList
+      ref={ref as React.RefObject<any>}
+      numColumns={numColumns}
+      data={data}
+      estimatedItemSize={150}
+      renderItem={({ item }) => <PhotoCard data={item} cols={numColumns} />}
+      onEndReached={onEndReached}
+      showsVerticalScrollIndicator={false}
+      ListHeaderComponent={ListHeaderComponent}
+      ListFooterComponent={() => <Spinner style={styles.spinner} />}
+    />
   );
 });
 PhotoList.displayName = 'PhotoList';

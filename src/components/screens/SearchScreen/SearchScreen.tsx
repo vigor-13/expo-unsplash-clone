@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, tokens } from '@/ui';
-import { KeywordBoxList } from '../../blocks/KeywordBoxList';
 import { SHOW_KEYWORDS } from '@/dto';
 import { PhotoList } from '@/components/blocks/PhotoList/PhotoList';
 import { usePhotos } from '@/hooks/usePhotos';
+import { KeywordBoxList } from '../../blocks/KeywordBoxList';
 
 export const SearchScreen: React.FC = () => {
   const { query: photosQuery, list: photos } = usePhotos();

@@ -5,20 +5,21 @@ import {
   ViewStyle,
   StyleSheet,
   TouchableOpacity,
+  TouchableOpacityProps,
 } from 'react-native';
 import { tokens, Image, Overlay, Text } from '@/ui';
 import { KeywordBoxData } from '@/dto';
 
-export interface KeywordBoxProps {
+export interface KeywordBoxProps extends TouchableOpacityProps {
   style?: StyleProp<ViewStyle>;
   data: KeywordBoxData;
 }
 
 export const KeywordBox: React.FC<KeywordBoxProps> = (props) => {
-  const { data, style } = props;
+  const { data, style, ...rest } = props;
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity {...rest}>
       <View style={[styles.container, style]}>
         <Image
           source={data.thumbnail}

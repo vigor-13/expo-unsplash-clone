@@ -2,9 +2,11 @@ import { Photo, Topic } from '@/services';
 
 export type TopicData = Topic;
 export type PhotoData = Photo;
-export type KeywordBoxData = {
+export type KeywordData = {
   title: string;
   query: string;
+};
+export type KeywordBoxData = KeywordData & {
   thumbnail: string;
 };
 
@@ -17,7 +19,7 @@ export const DEFAULT_TOPIC_DATA = {
 export const SHOW_KEYWORDS: KeywordBoxData[] = [
   {
     title: '자연',
-    query: 'nauture',
+    query: 'nature',
     thumbnail:
       'https://images.unsplash.com/photo-1479030160180-b1860951d696?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },

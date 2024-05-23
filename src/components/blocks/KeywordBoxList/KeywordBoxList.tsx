@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, FlatList, Dimensions, StyleProp, ViewStyle } from 'react-native';
-import { KeywordBoxData } from '@/dto';
+import { useNavigation } from '@react-navigation/native';
+import { KeywordBoxData, KeywordData } from '@/dto';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '@/routes/components';
 import { KeywordBox } from '../KeywordBox';
 
 /**
@@ -18,6 +21,7 @@ export interface KeywordBoxListProps {
 }
 
 export const KeywordBoxList: React.FC<KeywordBoxListProps> = (props) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { containerStyle, data } = props;
   const groupedData = data.reduce<any>((result, item, index) => {
     if (index % 2 === 0) {
@@ -27,6 +31,10 @@ export const KeywordBoxList: React.FC<KeywordBoxListProps> = (props) => {
     }
     return result;
   }, []);
+
+  const onPressKeywordBox = (props: KeywordData) => {
+    navigation.navigate('KeywordPhotosScreen', props);
+  };
 
   const renderRow = ({
     item,
@@ -41,6 +49,12 @@ export const KeywordBoxList: React.FC<KeywordBoxListProps> = (props) => {
           <KeywordBox
             key={`${index}-${subIndex}`}
             data={keywordData}
+            onPress={() =>
+              onPressKeywordBox({
+                query: keywordData.query,
+                title: keywordData.title,
+              })
+            }
             style={{
               width: itemWidth,
               height: itemHeight,

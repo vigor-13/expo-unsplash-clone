@@ -1,6 +1,7 @@
 import { Dimensions } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppInfoScreen } from '@/components/screens/AppInfoScreen';
+import { KeywordPhotosScreen } from '@/components/screens/KeywordPhotosScreen';
 import { ModalHeader } from '@/components/blocks/ModalHeader';
 import { MainTabComponent } from '../MainTab';
 import { RootStackParamList } from './RootStack.type';
@@ -18,6 +19,12 @@ export const RootStackComponent = () => {
           options={{
             headerShown: false,
           }}
+        />
+      </RootStack.Group>
+      <RootStack.Group>
+        <RootStack.Screen
+          name="KeywordPhotosScreen"
+          component={KeywordPhotosScreen}
         />
       </RootStack.Group>
       <RootStack.Group
