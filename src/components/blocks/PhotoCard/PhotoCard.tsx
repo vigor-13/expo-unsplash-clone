@@ -43,6 +43,8 @@ export const PhotoCard: React.FC<PhotoCardProps> = (props) => {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    borderWidth: 1,
+    borderColor: 'black',
   },
   image: {
     width: '100%',
