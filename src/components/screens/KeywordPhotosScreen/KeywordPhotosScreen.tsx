@@ -30,7 +30,10 @@ export const KeywordPhotosScreen: React.FC = () => {
     <View style={styles.container}>
       <PhotoList
         data={list}
+        loading={query.status === 'pending'}
+        hasNextPage={query.hasNextPage}
         numColumns={2}
+        showsVerticalScrollIndicator
         onEndReached={() => {
           query.fetchNextPage();
         }}

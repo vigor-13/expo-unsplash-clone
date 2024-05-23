@@ -39,9 +39,9 @@ export const MainScreen: React.FC = () => {
           <PhotoList
             // ref={flatListRef}
             data={photos}
-            onEndReached={() => {
-              photosQuery.fetchNextPage();
-            }}
+            loading={photosQuery.status === 'pending'}
+            hasNextPage={photosQuery.hasNextPage}
+            onEndReached={photosQuery.fetchNextPage}
             ListHeaderComponent={() =>
               randomPhoto && <PhotoListHeader data={randomPhoto} />
             }
@@ -50,9 +50,9 @@ export const MainScreen: React.FC = () => {
           <PhotoList
             // ref={flatListRef}
             data={topicsPhotos}
-            onEndReached={() => {
-              topicsPhotosQuery.fetchNextPage();
-            }}
+            loading={topicsPhotosQuery.status === 'pending'}
+            hasNextPage={topicsPhotosQuery.hasNextPage}
+            onEndReached={topicsPhotosQuery.fetchNextPage}
             ListHeaderComponent={() =>
               activeTopic && (
                 <PhotoListTopicHeader

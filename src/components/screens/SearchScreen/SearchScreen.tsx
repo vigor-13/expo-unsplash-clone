@@ -13,6 +13,8 @@ export const SearchScreen: React.FC = () => {
     <>
       <PhotoList
         data={photos}
+        loading={photosQuery.status === 'pending'}
+        hasNextPage={photosQuery.hasNextPage}
         numColumns={2}
         onEndReached={() => {
           photosQuery.fetchNextPage();

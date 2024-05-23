@@ -7,9 +7,9 @@ import {
 } from 'react-native';
 import { tokens } from '@/ui/themes';
 
-export interface SpinnerProps extends ActivityIndicatorProps {}
+export interface Props extends ActivityIndicatorProps {}
 
-export const Spinner: React.FC<SpinnerProps> = (props) => {
+export const Spinner: React.FC<Props> = (props) => {
   const { style, size, color, ...rest } = props;
 
   return (
