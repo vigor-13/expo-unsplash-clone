@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
 import { PhotoData } from '@/dto';
 import { getDisplayHeight } from '@/libs';
 import { tokens } from '@/ui/themes';
 import { Text, Image } from '@/ui';
 
-export interface PhotoCardProps {
+export interface Props {
   data: PhotoData;
   cols?: number;
+  onPress?: () => void;
 }
 
-export const PhotoCard: React.FC<PhotoCardProps> = (props) => {
-  const { data, cols = 1 } = props;
+export const PhotoCard: React.FC<Props> = (props) => {
+  const { data, cols = 1, onPress } = props;
   const displayHeight = getDisplayHeight({
     width: data.width,
     height: data.height,
@@ -19,9 +20,10 @@ export const PhotoCard: React.FC<PhotoCardProps> = (props) => {
   });
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Image
         source={data.urls.regular}
+        cachePolicy="none"
         contentFit="cover"
         transition={300}
         style={[
@@ -36,7 +38,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = (props) => {
           <Text variant="photoCardUserName">{data.user.name}</Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

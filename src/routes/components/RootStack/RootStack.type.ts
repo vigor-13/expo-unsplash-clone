@@ -3,8 +3,9 @@ import { KeywordData } from '@/dto';
 
 export type RootStackParamList = {
   MainTab: undefined;
-  KeywordPhotosScreen: KeywordData;
   AppInfoScreen: undefined;
+  PhotoScreen: { index: number };
+  KeywordPhotosScreen: KeywordData;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

@@ -1,17 +1,15 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import {} from '@/components/blocks/TopicTabButton';
 import { DEFAULT_TOPIC_DATA, TopicData } from '@/dto';
 
-export interface TopicState {
+interface State {
   activeTopic: TopicData;
 }
-
-export interface TopicAction {
+interface Action {
   setActiveTopic: (id: TopicData) => void;
 }
 
-export const useTopicStore = create<TopicState & TopicAction>()(
+export const useTopicStore = create<State & Action>()(
   immer((set) => ({
     activeTopic: DEFAULT_TOPIC_DATA,
     setActiveTopic: (topic) => {

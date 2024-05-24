@@ -7,6 +7,10 @@ import {
 } from '@shopify/flash-list';
 import { Spinner, tokens } from '@/ui';
 import { PhotoCard } from '@/components/blocks/PhotoCard';
+import { usePhotoStore } from '@/stores';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '@/routes/components';
+import { PhotoData } from '@/dto';
 import { Logo } from '../Logo';
 
 export interface Props extends Omit<MasonryFlashListProps<any>, 'renderItem'> {
@@ -25,6 +29,8 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
       ListHeaderComponent,
       ...rest
     } = props;
+    const { setPhotoList } = usePhotoStore((state) => state);
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     const handleEndReached = () => {
       if (!onEndReached) return;
@@ -52,13 +58,24 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
       }
     };
 
+    const onPressPhotoCard = (index: number) => {
+      setPhotoList(data as PhotoData[]);
+      navigation.navigate('PhotoScreen', { index });
+    };
+
     return (
       <MasonryFlashList
         ref={ref as React.RefObject<any>}
         numColumns={numColumns}
         data={data}
         estimatedItemSize={150}
-        renderItem={({ item }) => <PhotoCard data={item} cols={numColumns} />}
+        renderItem={({ item, index }) => (
+          <PhotoCard
+            data={item}
+            cols={numColumns}
+            onPress={() => onPressPhotoCard(index)}
+          />
+        )}
         onEndReached={handleEndReached}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={ListHeaderComponent}
