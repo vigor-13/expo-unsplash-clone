@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   RouteProp as NativeRouteProp,
+  NavigationProp,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
@@ -9,24 +10,30 @@ import { FlashList } from '@shopify/flash-list';
 import { ImageZoom } from '@likashefqet/react-native-image-zoom';
 import { IconInfoCircle } from '@tabler/icons-react-native';
 import { RootStackParamList } from '@/routes/components';
-import { StackHeader } from '@/components/blocks/StackHeader';
+import { StackHeader } from '@/components/sections/headers/StackHeader';
 import { CircleIconButton } from '@/components/blocks/CircleIconButton';
 import { usePhotoStore } from '@/stores';
 import { PhotoData } from '@/dto';
 import { tokens, IconButton } from '@/ui';
+import { useGetPhoto } from '@/hooks';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 type RouteProps = NativeRouteProp<RootStackParamList, 'PhotoScreen'>;
 
 export const PhotoScreen: React.FC = () => {
   const ref = React.useRef(null);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProps>();
   const dataIndex = route.params.index;
   const { photoList, clearPhotoList } = usePhotoStore((state) => state);
   const [activeItem, setActiveItem] = React.useState<PhotoData>(
     photoList[dataIndex],
   );
+  useGetPhoto(activeItem.id);
+
+  const openInfoModal = () => {
+    navigation.navigate('PhotoInfoScreen', { id: activeItem.id });
+  };
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -81,7 +88,11 @@ export const PhotoScreen: React.FC = () => {
           );
         }}
       />
-      <IconButton icon={IconInfoCircle} containerStyle={styles.info} />
+      <IconButton
+        icon={IconInfoCircle}
+        containerStyle={styles.info}
+        onPress={openInfoModal}
+      />
       <View style={styles.iconContainer}>
         <CircleIconButton iconName="IconHeartFilled" onPress={() => null} />
         <CircleIconButton iconName="IconPlus" onPress={() => null} />

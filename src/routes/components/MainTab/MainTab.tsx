@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DummyScreen } from '@/components/screens/DummyScreen';
 import { MainScreen } from '@/components/screens/MainScreen';
-import { SearchHeader } from '@/components/blocks/SearchHeader';
+import { SearchHeader } from '@/components/sections/headers/SearchHeader';
 import {
   TabNavigatorIcon,
   type TabNavigatorIconName,

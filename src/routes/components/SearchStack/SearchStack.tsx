@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { SearchScreen } from '@/components/screens/SearchScreen';
 import { SearchInputScreen } from '@/components/screens/SearchInputScreen';
-import { SearchHeader } from '@/components/blocks/SearchHeader';
+import { SearchHeader } from '@/components/sections/headers/SearchHeader';
 import { SearchStackParamList } from './SearchStack.type';
 
 const SearchStack = createStackNavigator<SearchStackParamList>();

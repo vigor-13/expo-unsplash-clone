@@ -1,5 +1,5 @@
 import { unsplashApi } from '../instance';
-import { Photo } from './type';
+import { Photo, PhotoDetail } from './type';
 
 /**
  * Docs: https://unsplash.com/documentation#list-photos
@@ -24,3 +24,14 @@ export interface GetPhotosParams {
 export const getRandomPhoto = () => {
   return unsplashApi.get<Photo>(`/photos/random`, {});
 };
+
+/**
+ * Docs: https://unsplash.com/documentation#get-a-photo
+ */
+export const getPhoto = (param: GetPhotoParam) => {
+  const { id } = param;
+  return unsplashApi.get<PhotoDetail>(`/photos/${id}`);
+};
+export interface GetPhotoParam {
+  id: string;
+}

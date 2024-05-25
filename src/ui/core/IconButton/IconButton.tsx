@@ -8,13 +8,14 @@ interface Props {
   containerStyle?: StyleProp<ViewStyle>;
   size?: number;
   color?: string;
+  onPress?: () => void;
 }
 
 export const IconButton: React.FC<Props> = (props) => {
-  const { icon: Icon, containerStyle, size, color } = props;
+  const { icon: Icon, containerStyle, size, color, onPress } = props;
 
   return (
-    <RN.TouchableOpacity style={containerStyle}>
+    <RN.TouchableOpacity style={containerStyle} onPress={onPress}>
       <Icon size={size} color={color ? color : tokens.st.color.white} />
     </RN.TouchableOpacity>
   );

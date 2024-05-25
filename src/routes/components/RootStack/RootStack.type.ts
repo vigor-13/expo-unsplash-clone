@@ -4,6 +4,7 @@ import { KeywordData } from '@/dto';
 export type RootStackParamList = {
   MainTab: undefined;
   AppInfoScreen: undefined;
+  PhotoInfoScreen: { id: string };
   PhotoScreen: { index: number };
   KeywordPhotosScreen: KeywordData;
 };

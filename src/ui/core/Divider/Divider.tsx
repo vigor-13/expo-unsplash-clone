@@ -1,9 +1,13 @@
 import { tokens } from '@/ui/themes';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
 
-export const Divider: React.FC = () => {
-  return <View style={styles.container} />;
+interface Props extends ViewProps {}
+
+export const Divider: React.FC<Props> = (props) => {
+  const { style } = props;
+  return <View style={[styles.container, style]} />;
 };
 
 const styles = StyleSheet.create({

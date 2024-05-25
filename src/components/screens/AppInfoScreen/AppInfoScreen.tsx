@@ -3,9 +3,15 @@ import { View, StyleSheet } from 'react-native';
 import { Logo } from '@/components/blocks/Logo';
 import { LinkButton } from '@/components/blocks/LinkButton';
 import { Text, tokens, Divider } from '@/ui';
-import { useApplication } from '@/hooks';
+import { useApplication, useHeader } from '@/hooks';
+import { Header } from '@/components/sections/headers/Header';
+import { HeaderTextButton } from '@/components/blocks/HeaderTextButton';
 
 export const AppInfoScreen: React.FC = () => {
+  useHeader({
+    header: () => <Header headerRight={<HeaderTextButton text="완료" />} />,
+  });
+
   const { applicationName, applicationVersion, nativeBuildVersion } =
     useApplication();
 

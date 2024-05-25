@@ -16,8 +16,7 @@ export interface TextProps extends RawTextProps {
     | 'photoCardTitle'
     | 'photoCardTopicTitle'
     | 'photoCardTopicSubject'
-    | 'photoCardTopicDesc'
-    | 'modalCloseText';
+    | 'photoCardTopicDesc';
 }
 
 export const Text: React.FC<TextProps> = (props) => {
@@ -36,7 +35,6 @@ export const Text: React.FC<TextProps> = (props) => {
         variant === 'photoCardTopicTitle' && styles.photoCardTopicTitle,
         variant === 'photoCardTopicSubject' && styles.photoCardTopicSubject,
         variant === 'photoCardTopicDesc' && styles.photoCardTopicDesc,
-        variant === 'modalCloseText' && styles.modalCloseText,
         style,
       ]}
       {...rest}
@@ -91,8 +89,5 @@ const styles = StyleSheet.create({
     fontWeight: tokens.st.font.weight.medium as any,
     color: tokens.st.color.neutral[400],
     lineHeight: 20,
-  },
-  modalCloseText: {
-    fontWeight: tokens.st.font.weight.semiBold as any,
   },
 });

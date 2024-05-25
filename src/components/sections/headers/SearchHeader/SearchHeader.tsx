@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { SearchBar } from '../SearchBar';
+import { SearchBar } from '../../../blocks/SearchBar';
 import { useTextInput } from '@/hooks/utils/useTextInput';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

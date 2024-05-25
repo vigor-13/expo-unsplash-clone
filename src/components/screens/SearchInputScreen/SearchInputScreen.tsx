@@ -5,10 +5,10 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 import { SearchQueryList } from '@/components/blocks/SearchQueryList';
 import { Text, tokens } from '@/ui';
+import { HeaderTextButton } from '@/components/blocks/HeaderTextButton';
 
 export const SearchInputScreen: React.FC = () => {
   return (
@@ -21,9 +21,7 @@ export const SearchInputScreen: React.FC = () => {
         <View style={styles.section}>
           <View style={styles.sectionTitleContainer}>
             <Text variant="sectionTitle">최신</Text>
-            <TouchableOpacity>
-              <Text variant="modalCloseText">삭제</Text>
-            </TouchableOpacity>
+            <HeaderTextButton text="삭제" />
           </View>
           <SearchQueryList containerStyle={styles.queryList} type="search" />
         </View>

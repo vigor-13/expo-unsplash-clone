@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import { View, StyleSheet } from 'react-native';
 import { RootStackParamList } from '@/routes/components';
-import { StackHeader } from '@/components/blocks/StackHeader';
+import { StackHeader } from '@/components/sections/headers/StackHeader';
 import { useSearchPhotos } from '@/hooks';
 import { PhotoList } from '@/components/blocks/PhotoList';
 

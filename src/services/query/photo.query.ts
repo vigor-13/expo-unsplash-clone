@@ -1,5 +1,5 @@
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
-import { getPhotos, getRandomPhoto } from '@/services/api';
+import { getPhoto, getPhotos, getRandomPhoto } from '@/services/api';
 import { DEFAULT_TOPIC_DATA } from '@/dto';
 
 export const getPhotosOptions = (slug: string) => {
@@ -34,6 +34,20 @@ export const getRandomPhotoOptions = () => {
     queryKey: ['getRandomPhoto'],
     queryFn: async () => {
       const response = await getRandomPhoto();
+      return response;
+    },
+    select: (data) => {
+      return data.data;
+    },
+  });
+};
+
+export const getPhotoOptions = (id: string) => {
+  return queryOptions({
+    queryKey: ['getPhoto', id],
+    queryFn: async ({ queryKey }) => {
+      const id = queryKey[1];
+      const response = await getPhoto({ id });
       return response;
     },
     select: (data) => {

@@ -3,15 +3,15 @@ import {
   StyleSheet,
   View,
   TextInput,
-  TouchableOpacity,
   Animated,
   TextInputProps,
   NativeSyntheticEvent,
   TextInputFocusEventData,
 } from 'react-native';
 import { IconSearch } from '@tabler/icons-react-native';
-import { tokens, Text } from '@/ui';
+import { tokens } from '@/ui';
 import { useAnimatedSearchBar } from './useAnimatedSearchBar';
+import { HeaderTextButton } from '../HeaderTextButton';
 
 export interface SearchBarProps extends TextInputProps {
   onClose: () => void;
@@ -62,9 +62,7 @@ export const SearchBar = React.forwardRef<TextInput, SearchBarProps>(
             },
           ]}
         >
-          <TouchableOpacity onPress={onClose}>
-            <Text variant="modalCloseText">취소</Text>
-          </TouchableOpacity>
+          <HeaderTextButton text="취소" onPress={onClose} />
         </Animated.View>
       </View>
     );

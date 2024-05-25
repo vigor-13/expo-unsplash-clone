@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { MainHeader } from '@/components/blocks/MainHeader';
+import { MainHeader } from '@/components/sections/headers/MainHeader';
 import { PhotoList } from '@/components/blocks/PhotoList';
 import { PhotoListHeader } from '@/components/blocks/PhotoListHeader';
 import { PhotoListTopicHeader } from '@/components/blocks/PhotoListTopicHeader';
