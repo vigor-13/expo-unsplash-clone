@@ -11,6 +11,8 @@ import { RootStackParamList } from '@/routes/components';
 import { StackHeader } from '@/components/blocks/StackHeader';
 import { usePhotoStore } from '@/stores';
 import { PhotoData } from '@/dto';
+import { CircleIconButton } from '@/components/blocks/CircleIconButton';
+import { tokens } from '@/ui';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 type RouteProps = NativeRouteProp<RootStackParamList, 'PhotoScreen'>;
@@ -21,13 +23,15 @@ export const PhotoScreen: React.FC = () => {
   const route = useRoute<RouteProps>();
   const dataIndex = route.params.index;
   const { photoList, clearPhotoList } = usePhotoStore((state) => state);
-  const [data] = React.useState<PhotoData>(photoList[dataIndex]);
+  const [activeItem, setActiveItem] = React.useState<PhotoData>(
+    photoList[dataIndex],
+  );
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      header: () => <StackHeader title={data.user.name} fixed />,
+      header: () => <StackHeader title={activeItem.user.name} fixed />,
     });
-  }, [navigation, route, data]);
+  }, [navigation, route, activeItem]);
 
   React.useEffect(() => {
     return () => clearPhotoList();
@@ -46,6 +50,14 @@ export const PhotoScreen: React.FC = () => {
         disableIntervalMomentum
         snapToAlignment="start"
         decelerationRate="fast"
+        viewabilityConfig={{
+          itemVisiblePercentThreshold: 70,
+        }}
+        onViewableItemsChanged={({ viewableItems }) => {
+          if (viewableItems[0]) {
+            setActiveItem(viewableItems[0].item);
+          }
+        }}
         renderItem={({ item }) => {
           return (
             <View
@@ -62,13 +74,21 @@ export const PhotoScreen: React.FC = () => {
                 minPanPointers={1}
                 isSingleTapEnabled
                 isDoubleTapEnabled
-                style={styles.image}
                 resizeMode="contain"
               />
             </View>
           );
         }}
       />
+      <View style={styles.iconContainer}>
+        <CircleIconButton iconName="IconHeartFilled" onPress={() => null} />
+        <CircleIconButton iconName="IconPlus" onPress={() => null} />
+        <CircleIconButton
+          iconName="IconArrowDown"
+          onPress={() => null}
+          variant="secondary"
+        />
+      </View>
     </View>
   );
 };
@@ -77,5 +97,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {},
+  iconContainer: {
+    position: 'absolute',
+    right: tokens.st.space[200],
+    bottom: tokens.st.space[600],
+    gap: tokens.st.space['200'],
+  },
 });
