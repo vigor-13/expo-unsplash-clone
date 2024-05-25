@@ -7,12 +7,13 @@ import {
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { ImageZoom } from '@likashefqet/react-native-image-zoom';
+import { IconInfoCircle } from '@tabler/icons-react-native';
 import { RootStackParamList } from '@/routes/components';
 import { StackHeader } from '@/components/blocks/StackHeader';
+import { CircleIconButton } from '@/components/blocks/CircleIconButton';
 import { usePhotoStore } from '@/stores';
 import { PhotoData } from '@/dto';
-import { CircleIconButton } from '@/components/blocks/CircleIconButton';
-import { tokens } from '@/ui';
+import { tokens, IconButton } from '@/ui';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 type RouteProps = NativeRouteProp<RootStackParamList, 'PhotoScreen'>;
@@ -80,6 +81,7 @@ export const PhotoScreen: React.FC = () => {
           );
         }}
       />
+      <IconButton icon={IconInfoCircle} containerStyle={styles.info} />
       <View style={styles.iconContainer}>
         <CircleIconButton iconName="IconHeartFilled" onPress={() => null} />
         <CircleIconButton iconName="IconPlus" onPress={() => null} />
@@ -96,6 +98,11 @@ export const PhotoScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  info: {
+    position: 'absolute',
+    left: tokens.st.space[200],
+    bottom: tokens.st.space[600],
   },
   iconContainer: {
     position: 'absolute',
