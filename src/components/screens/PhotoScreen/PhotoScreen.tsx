@@ -10,17 +10,21 @@ import { FlashList } from '@shopify/flash-list';
 import { ImageZoom } from '@likashefqet/react-native-image-zoom';
 import { IconInfoCircle } from '@tabler/icons-react-native';
 import { RootStackParamList } from '@/routes/components';
-import { StackHeader } from '@/components/sections/headers/StackHeader';
 import { CircleIconButton } from '@/components/blocks/CircleIconButton';
 import { usePhotoStore } from '@/stores';
 import { PhotoData } from '@/dto';
 import { tokens, IconButton } from '@/ui';
-import { useGetPhoto } from '@/hooks';
+import { useGetPhoto, useHeader } from '@/hooks';
+import { Header } from '@/components/sections/headers/Header';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 type RouteProps = NativeRouteProp<RootStackParamList, 'PhotoScreen'>;
 
 export const PhotoScreen: React.FC = () => {
+  useHeader({
+    header: () => <Header title={activeItem.user.name} float />,
+  });
+
   const ref = React.useRef(null);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProps>();
@@ -34,12 +38,6 @@ export const PhotoScreen: React.FC = () => {
   const openInfoModal = () => {
     navigation.navigate('PhotoInfoScreen', { id: activeItem.id });
   };
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      header: () => <StackHeader title={activeItem.user.name} fixed />,
-    });
-  }, [navigation, route, activeItem]);
 
   React.useEffect(() => {
     return () => clearPhotoList();

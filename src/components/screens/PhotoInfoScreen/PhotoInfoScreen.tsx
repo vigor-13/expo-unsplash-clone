@@ -14,7 +14,11 @@ type RouteProps = Navigation.RouteProp<RootStackParamList, 'PhotoInfoScreen'>;
 export const PhotoInfoScreen: React.FC = () => {
   useHeader({
     header: () => (
-      <Header title="정보" headerLeft={<HeaderTextButton text="닫기" />} />
+      <Header
+        title="정보"
+        variant="modal"
+        headerLeft={() => <HeaderTextButton text="닫기" />}
+      />
     ),
   });
 

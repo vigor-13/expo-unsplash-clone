@@ -9,7 +9,13 @@ import { HeaderTextButton } from '@/components/blocks/HeaderTextButton';
 
 export const AppInfoScreen: React.FC = () => {
   useHeader({
-    header: () => <Header headerRight={<HeaderTextButton text="완료" />} />,
+    header: () => (
+      <Header
+        variant="modal"
+        headerLeft={() => null}
+        headerRight={() => <HeaderTextButton text="완료" />}
+      />
+    ),
   });
 
   const { applicationName, applicationVersion, nativeBuildVersion } =

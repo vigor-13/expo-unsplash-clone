@@ -1,23 +1,15 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Animated,
-  TextInputProps,
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
-} from 'react-native';
+import RN from 'react-native';
 import { IconSearch } from '@tabler/icons-react-native';
 import { tokens } from '@/ui';
 import { useAnimatedSearchBar } from './useAnimatedSearchBar';
 import { HeaderTextButton } from '../HeaderTextButton';
 
-export interface SearchBarProps extends TextInputProps {
+export interface SearchBarProps extends RN.TextInputProps {
   onClose: () => void;
 }
 
-export const SearchBar = React.forwardRef<TextInput, SearchBarProps>(
+export const SearchBar = React.forwardRef<RN.TextInput, SearchBarProps>(
   (props, ref) => {
     const { onClose, onFocus, onBlur, ...rest } = props;
     const {
@@ -28,23 +20,21 @@ export const SearchBar = React.forwardRef<TextInput, SearchBarProps>(
       onBlurAnimation,
     } = useAnimatedSearchBar();
 
-    const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    const handleFocus = (
+      e: RN.NativeSyntheticEvent<RN.TextInputFocusEventData>,
+    ) => {
       onFocusAnimation();
       if (onFocus) onFocus(e);
     };
-    const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    const handleBlur = () => {
       onBlurAnimation();
     };
 
     return (
-      <View style={styles.container}>
-        <Animated.View style={[styles.inputContainer, { flex: inputWidth }]}>
-          <IconSearch
-            style={styles.searchIcon}
-            size={20}
-            color={tokens.st.color.neutral[400]}
-          />
-          <TextInput
+      <RN.View style={styles.container}>
+        <RN.Animated.View style={[styles.inputContainer, { flex: inputWidth }]}>
+          <IconSearch size={20} color={tokens.st.color.neutral[400]} />
+          <RN.TextInput
             ref={ref}
             placeholderTextColor={tokens.st.color.neutral[400]}
             style={styles.searchInput}
@@ -52,8 +42,8 @@ export const SearchBar = React.forwardRef<TextInput, SearchBarProps>(
             onBlur={handleBlur}
             {...rest}
           />
-        </Animated.View>
-        <Animated.View
+        </RN.Animated.View>
+        <RN.Animated.View
           style={[
             styles.dissmissButtonContainer,
             {
@@ -63,14 +53,14 @@ export const SearchBar = React.forwardRef<TextInput, SearchBarProps>(
           ]}
         >
           <HeaderTextButton text="취소" onPress={onClose} />
-        </Animated.View>
-      </View>
+        </RN.Animated.View>
+      </RN.View>
     );
   },
 );
 SearchBar.displayName = 'SearchBar';
 
-const styles = StyleSheet.create({
+const styles = RN.StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: tokens.st.space['150'],
@@ -83,7 +73,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: tokens.st.space['100'],
     borderRadius: 6,
   },
-  searchIcon: {},
   searchInput: {
     flex: 1,
     height: 36,
@@ -95,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: tokens.st.space['150'],
     position: 'absolute',
-    right: 20,
+    right: tokens.st.space['200'],
     top: 20,
   },
 });

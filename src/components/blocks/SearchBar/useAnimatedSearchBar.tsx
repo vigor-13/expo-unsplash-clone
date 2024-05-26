@@ -14,7 +14,7 @@ export const useAnimatedSearchBar = () => {
       useNativeDriver: true,
     }).start();
     Animated.timing(inputWidth, {
-      toValue: 0.85,
+      toValue: 0.87,
       duration,
       useNativeDriver: false,
     }).start();

@@ -1,33 +1,29 @@
 import React from 'react';
+import RN from 'react-native';
 import {
   RouteProp as NativeRouteProp,
-  useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import { View, StyleSheet } from 'react-native';
 import { RootStackParamList } from '@/routes/components';
-import { StackHeader } from '@/components/sections/headers/StackHeader';
-import { useSearchPhotos } from '@/hooks';
+import { useHeader, useSearchPhotos } from '@/hooks';
 import { PhotoList } from '@/components/blocks/PhotoList';
+import { Header } from '@/components/sections/headers/Header';
 
 type RouteProps = NativeRouteProp<RootStackParamList, 'KeywordPhotosScreen'>;
 
 export const KeywordPhotosScreen: React.FC = () => {
-  const navigation = useNavigation();
-  const route = useRoute<RouteProps>();
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      header: () => <StackHeader title={route.params.title} />,
-    });
-  }, [navigation, route]);
+  useHeader({
+    header: () => <Header title={route.params.title} />,
+  });
 
+  const route = useRoute<RouteProps>();
   const { list, query } = useSearchPhotos({
     query: route.params.query,
     orientation: 'portrait',
   });
 
   return (
-    <View style={styles.container}>
+    <RN.View style={styles.container}>
       <PhotoList
         data={list}
         loading={query.status === 'pending'}
@@ -38,11 +34,11 @@ export const KeywordPhotosScreen: React.FC = () => {
           query.fetchNextPage();
         }}
       />
-    </View>
+    </RN.View>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = RN.StyleSheet.create({
   container: {
     flex: 1,
   },
