@@ -19,6 +19,7 @@ export const QueryPhotosScreen: React.FC = () => {
   return (
     <RN.View style={styles.container}>
       <PhotoList
+        showFiler
         data={list}
         loading={query.status === 'pending'}
         hasNextPage={query.hasNextPage}
