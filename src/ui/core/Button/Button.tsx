@@ -12,19 +12,31 @@ import { Text } from '../Text';
 export interface ButtonProps extends TouchableOpacityProps {
   text?: string;
   textStyle?: StyleProp<TextStyle>;
-  size?: 'sm' | 'base' | 'lg';
+  size?: 'sm' | 'base' | 'lg' | 'xl';
+  variant?: 'solid' | 'outline';
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
-  const { style, children, text, textStyle, size = 'base', ...rest } = props;
+  const {
+    style,
+    children,
+    text,
+    textStyle,
+    size = 'base',
+    variant = 'solid',
+    ...rest
+  } = props;
 
   return (
     <TouchableOpacity
       style={[
-        styles.button,
+        styles.container,
         size === 'sm' && styles.sm,
         size === 'base' && styles.base,
         size === 'lg' && styles.lg,
+        size === 'xl' && styles.xl,
+        variant === 'solid' && styles.solid,
+        variant === 'outline' && styles.outline,
         style,
       ]}
       {...rest}
@@ -32,23 +44,30 @@ export const Button: React.FC<ButtonProps> = (props) => {
       {children ? (
         children
       ) : (
-        <Text style={[styles.buttonText, textStyle]}>{text}</Text>
+        <Text
+          style={[
+            styles.text,
+            variant === 'outline' && styles.outlineText,
+            size === 'xl' && styles.xlText,
+            textStyle,
+          ]}
+        >
+          {text}
+        </Text>
       )}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: tokens.st.color.white,
+  container: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: tokens.st.space[100],
     borderRadius: 6,
-    marginTop: 10,
   },
-  buttonText: {
+  text: {
     fontSize: tokens.st.font.size.sm,
     color: tokens.st.color.black,
     fontWeight: tokens.st.font.weight.semiBold as any,
@@ -59,7 +78,24 @@ const styles = StyleSheet.create({
   lg: {
     paddingVertical: tokens.st.space[100],
   },
+  xl: {
+    paddingVertical: tokens.st.space[200],
+  },
+  xlText: {
+    fontSize: tokens.st.font.size.lg,
+  },
   base: {
     paddingVertical: tokens.st.space[125],
+  },
+  solid: {
+    backgroundColor: tokens.st.color.white,
+  },
+  outline: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: tokens.st.color.neutral[600],
+  },
+  outlineText: {
+    color: tokens.st.color.white,
   },
 });

@@ -7,6 +7,7 @@ import { KeywordPhotosScreen } from '@/components/screens/KeywordPhotosScreen';
 import { QueryPhotosScreen } from '@/components/screens/QueryPhotosScreen';
 import { MainTabComponent } from '../MainTab';
 import { RootStackParamList } from './RootStack.type';
+import { QueryOptionScreen } from '@/components/screens/QueryOptionScreen';
 const screenHeight = Dimensions.get('window').height;
 
 const RootStack = createStackNavigator<RootStackParamList>();
@@ -45,6 +46,10 @@ export const RootStackComponent = () => {
       >
         <RootStack.Screen name="AppInfoScreen" component={AppInfoScreen} />
         <RootStack.Screen name="PhotoInfoScreen" component={PhotoInfoScreen} />
+        <RootStack.Screen
+          name="QueryOptionScreen"
+          component={QueryOptionScreen}
+        />
       </RootStack.Group>
     </RootStack.Navigator>
   );

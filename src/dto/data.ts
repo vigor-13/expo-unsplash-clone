@@ -104,3 +104,51 @@ export const SHOW_KEYWORDS: KeywordBoxData[] = [
 ];
 
 export const DUMMY_TREND_QUERIES = ['cat', 'planet', 'travel', 'nature'];
+
+export const QUERY_OPTION_DATA = [
+  {
+    title: '정렬 기준',
+    data: [
+      {
+        list: [
+          { name: '관련성', active: true },
+          { name: '최신순', active: false },
+        ],
+      },
+    ],
+  },
+  {
+    title: '방향',
+    data: [
+      {
+        list: [
+          { name: '모두', active: true },
+          { name: '세로', active: false },
+          { name: '가로', active: false },
+          { name: '정사각형', active: false },
+        ],
+      },
+    ],
+  },
+  {
+    title: '컬러',
+    data: [
+      {
+        list: [
+          { name: '모두', active: true },
+          { name: '흑백', active: false },
+          { name: '흰색', color: '#ffffff', active: false },
+          { name: '검은색', color: '#000000', active: false },
+          { name: '노란색', color: '#ffd700', active: false },
+          { name: '주황색', color: '#ff8c00', active: false },
+          { name: '빨간색', color: '#ff4500', active: false },
+          { name: '자주색', color: '#9370db', active: false },
+          { name: '자홍색', color: '#c71585', active: false },
+          { name: '녹색', color: '#32cd32', active: false },
+          { name: '청록색', color: '#40e0d0', active: false },
+          { name: '파란색', color: '#00bfff', active: false },
+        ],
+      },
+    ],
+  },
+];

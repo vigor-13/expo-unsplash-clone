@@ -1,9 +1,9 @@
 import React from 'react';
 import RN from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { IconChevronLeft } from '@tabler/icons-react-native';
 import { Text, tokens } from '@/ui';
-import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   headerLeft?: () => React.ReactNode;

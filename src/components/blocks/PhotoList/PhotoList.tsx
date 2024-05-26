@@ -68,6 +68,10 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
       navigation.navigate('PhotoScreen', { index });
     };
 
+    const goToQueryOptionScreen = () => {
+      navigation.navigate('QueryOptionScreen');
+    };
+
     return (
       <RN.View style={styles.container}>
         <MasonryFlashList
@@ -92,6 +96,7 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
         />
         {showFiler && (
           <FilterButton
+            onPress={goToQueryOptionScreen}
             style={[styles.filterButton, { bottom: insets.bottom + 20 }]}
           />
         )}
