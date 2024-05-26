@@ -5,8 +5,13 @@ import { SHOW_KEYWORDS } from '@/dto';
 import { PhotoList } from '@/components/blocks/PhotoList/PhotoList';
 import { usePhotos } from '@/hooks/usePhotos';
 import { KeywordBoxList } from '../../blocks/KeywordBoxList';
+import { useHeader } from '@/hooks';
+import { SearchHeader } from '@/components/sections/headers/SearchHeader';
 
 export const SearchScreen: React.FC = () => {
+  useHeader({
+    header: () => <SearchHeader />,
+  });
   const { query: photosQuery, list: photos } = usePhotos();
 
   return (

@@ -7,16 +7,16 @@ export const getSearchPhotosOptions = ({
   orientation,
 }: {
   query: string;
-  orientation: Orientation;
+  orientation?: Orientation;
 }) => {
   return infiniteQueryOptions({
     queryKey: ['photos', query, orientation],
     queryFn: async ({ pageParam, queryKey }) => {
-      const query = queryKey[1];
+      const query = queryKey[1]!;
       const orientation = queryKey[2] as Orientation;
       const response = await getSearchPhotos({
-        page: pageParam,
         query,
+        page: pageParam,
         orientation,
       });
       return response;

@@ -9,8 +9,14 @@ import {
 import { SearchQueryList } from '@/components/blocks/SearchQueryList';
 import { Text, tokens } from '@/ui';
 import { HeaderTextButton } from '@/components/blocks/HeaderTextButton';
+import { useHeader } from '@/hooks';
+import { SearchHeader } from '@/components/sections/headers/SearchHeader';
 
 export const SearchInputScreen: React.FC = () => {
+  useHeader({
+    header: () => <SearchHeader />,
+  });
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

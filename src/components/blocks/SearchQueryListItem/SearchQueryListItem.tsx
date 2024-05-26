@@ -8,12 +8,13 @@ export type SearchQueryItemType = 'search' | 'trend';
 export interface SearchQueryListItemProps {
   type: SearchQueryItemType;
   query: string;
+  onPress?: () => void;
 }
 
 export const SearchQueryListItem: React.FC<SearchQueryListItemProps> = (
   props,
 ) => {
-  const { type, query } = props;
+  const { type, query, onPress } = props;
 
   const renderIcon = () => {
     switch (type) {
@@ -37,7 +38,7 @@ export const SearchQueryListItem: React.FC<SearchQueryListItemProps> = (
   };
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       {renderIcon()}
       <Text style={styles.text}>{query}</Text>
     </TouchableOpacity>

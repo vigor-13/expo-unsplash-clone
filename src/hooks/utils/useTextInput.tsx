@@ -6,9 +6,9 @@ import {
   TextInputChangeEventData,
 } from 'react-native';
 
-export const useTextInput = () => {
+export const useTextInput = (initialValue?: string) => {
   const ref = React.useRef<TextInput>(null);
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState(initialValue ? initialValue : '');
 
   const handleValue = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     setValue(e.nativeEvent.text);

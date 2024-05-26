@@ -5,7 +5,7 @@ import { Orientation } from '@/services/api/endpoints/type.param';
 
 interface Props {
   query: string;
-  orientation: Orientation;
+  orientation?: Orientation;
 }
 
 export const useSearchPhotos = (props: Props) => {

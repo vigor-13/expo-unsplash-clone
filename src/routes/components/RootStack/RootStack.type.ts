@@ -7,6 +7,7 @@ export type RootStackParamList = {
   PhotoInfoScreen: { id: string };
   PhotoScreen: { index: number };
   KeywordPhotosScreen: KeywordData;
+  QueryPhotosScreen: { query: string };
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

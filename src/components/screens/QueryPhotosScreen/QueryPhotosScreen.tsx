@@ -1,21 +1,19 @@
+import { PhotoList } from '@/components/blocks/PhotoList';
+import { SearchHeader } from '@/components/sections/headers/SearchHeader';
+import { useHeader, useSearchPhotos } from '@/hooks';
+import { RootStackParamList } from '@/routes/components';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
 import RN from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { RootStackParamList } from '@/routes/components';
-import { useHeader, useSearchPhotos } from '@/hooks';
-import { PhotoList } from '@/components/blocks/PhotoList';
-import { Header } from '@/components/sections/headers/Header';
 
-export const KeywordPhotosScreen: React.FC = () => {
+export const QueryPhotosScreen: React.FC = () => {
   useHeader({
-    header: () => <Header title={route.params.title} />,
+    header: () => <SearchHeader query={route.params.query} />,
   });
 
-  const route =
-    useRoute<RouteProp<RootStackParamList, 'KeywordPhotosScreen'>>();
+  const route = useRoute<RouteProp<RootStackParamList, 'QueryPhotosScreen'>>();
   const { list, query } = useSearchPhotos({
     query: route.params.query,
-    orientation: 'portrait',
   });
 
   return (

@@ -1,18 +1,31 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+} from '@react-navigation/native';
 import { SearchBar } from '../../../blocks/SearchBar';
 import { useTextInput } from '@/hooks/utils/useTextInput';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SearchStackParamList } from '@/routes/components/SearchStack/SearchStack.type';
+import { RootStackParamList } from '@/routes/components';
 
-export const SearchHeader: React.FC = () => {
+interface Props {
+  query?: string;
+}
+
+export const SearchHeader: React.FC<Props> = (props) => {
+  const { query } = props;
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation<StackNavigationProp<SearchStackParamList>>();
+  const navigation =
+    useNavigation<
+      StackNavigationProp<SearchStackParamList & RootStackParamList>
+    >();
   const route = useRoute();
   const { value, ref, dismissKeyboard, clearValue, handleValue } =
-    useTextInput();
+    useTextInput(query);
 
   const handleClose = () => {
     clearValue();
@@ -25,9 +38,19 @@ export const SearchHeader: React.FC = () => {
     navigation.navigate('SearchInputScreen');
   };
 
-  React.useEffect(() => {
+  const handleSubmit = () => {
+    clearValue();
+    navigation.navigate('QueryPhotosScreen', { query: value });
+  };
+
+  const handleReset = () => {
+    clearValue();
+    navigation.navigate('SearchInputScreen');
+  };
+
+  useFocusEffect(() => {
     if (route.name === 'SearchInputScreen') ref.current?.focus();
-  }, [route, ref]);
+  });
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -35,9 +58,11 @@ export const SearchHeader: React.FC = () => {
         ref={ref}
         value={value}
         placeholder="사진, 컬렉션, 사용자 검색"
-        onClose={handleClose}
         onChange={handleValue}
         onFocus={handleFocus}
+        onSubmitEditing={handleSubmit}
+        reset={handleReset}
+        close={handleClose}
       />
     </View>
   );

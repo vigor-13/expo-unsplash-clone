@@ -1,17 +1,18 @@
 import React from 'react';
 import RN from 'react-native';
-import { IconSearch } from '@tabler/icons-react-native';
+import { IconSearch, IconCircleXFilled } from '@tabler/icons-react-native';
 import { tokens } from '@/ui';
 import { useAnimatedSearchBar } from './useAnimatedSearchBar';
 import { HeaderTextButton } from '../HeaderTextButton';
 
 export interface SearchBarProps extends RN.TextInputProps {
-  onClose: () => void;
+  close: () => void;
+  reset: () => void;
 }
 
 export const SearchBar = React.forwardRef<RN.TextInput, SearchBarProps>(
   (props, ref) => {
-    const { onClose, onFocus, onBlur, ...rest } = props;
+    const { value, close, onFocus, onBlur, reset, ...rest } = props;
     const {
       inputWidth,
       buttonOpacity,
@@ -26,6 +27,7 @@ export const SearchBar = React.forwardRef<RN.TextInput, SearchBarProps>(
       onFocusAnimation();
       if (onFocus) onFocus(e);
     };
+
     const handleBlur = () => {
       onBlurAnimation();
     };
@@ -36,12 +38,23 @@ export const SearchBar = React.forwardRef<RN.TextInput, SearchBarProps>(
           <IconSearch size={20} color={tokens.st.color.neutral[400]} />
           <RN.TextInput
             ref={ref}
+            value={value}
             placeholderTextColor={tokens.st.color.neutral[400]}
             style={styles.searchInput}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            returnKeyType="send"
             {...rest}
           />
+          {value && (
+            <RN.TouchableOpacity onPress={reset}>
+              <IconCircleXFilled
+                size={20}
+                color={tokens.st.color.neutral[400]}
+                fill="transparent"
+              />
+            </RN.TouchableOpacity>
+          )}
         </RN.Animated.View>
         <RN.Animated.View
           style={[
@@ -52,7 +65,7 @@ export const SearchBar = React.forwardRef<RN.TextInput, SearchBarProps>(
             },
           ]}
         >
-          <HeaderTextButton text="취소" onPress={onClose} />
+          <HeaderTextButton text="취소" onPress={close} />
         </RN.Animated.View>
       </RN.View>
     );

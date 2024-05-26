@@ -102,3 +102,5 @@ export const SHOW_KEYWORDS: KeywordBoxData[] = [
       'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1129&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
 ];
+
+export const DUMMY_TREND_QUERIES = ['cat', 'planet', 'travel', 'nature'];

@@ -1,26 +1,37 @@
 import React from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import RN from 'react-native';
 import {
   SearchQueryListItem,
   SearchQueryItemType,
 } from '../SearchQueryListItem';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '@/routes/components';
+import { DUMMY_TREND_QUERIES } from '@/dto';
 
 export interface SearchQueryListProps {
-  containerStyle?: StyleProp<ViewStyle>;
+  containerStyle?: RN.StyleProp<RN.ViewStyle>;
   type: SearchQueryItemType;
 }
 
 export const SearchQueryList: React.FC<SearchQueryListProps> = (props) => {
   const { containerStyle, type } = props;
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const handlePress = (query: string) => {
+    navigation.navigate('QueryPhotosScreen', { query });
+  };
 
   return (
-    <View style={[containerStyle]}>
-      <SearchQueryListItem type={type} query="그라데이션" />
-      <SearchQueryListItem type={type} query="자연" />
-      <SearchQueryListItem type={type} query="animal" />
-      <SearchQueryListItem type={type} query="nature" />
-    </View>
+    <RN.View style={[containerStyle]}>
+      {DUMMY_TREND_QUERIES.map((query) => {
+        return (
+          <SearchQueryListItem
+            type={type}
+            query={query}
+            onPress={() => handlePress(query)}
+          />
+        );
+      })}
+    </RN.View>
   );
 };
-
-const styles = StyleSheet.create({});
