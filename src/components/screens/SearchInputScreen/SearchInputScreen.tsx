@@ -11,11 +11,15 @@ import { Text, tokens } from '@/ui';
 import { HeaderTextButton } from '@/components/blocks/HeaderTextButton';
 import { useHeader } from '@/hooks';
 import { SearchHeader } from '@/components/sections/headers/SearchHeader';
+import { useSearchStore } from '@/stores';
+import { DUMMY_TREND_QUERIES } from '@/dto';
 
 export const SearchInputScreen: React.FC = () => {
   useHeader({
     header: () => <SearchHeader />,
   });
+
+  const { recentQueries, clearRecentQuery } = useSearchStore((state) => state);
 
   return (
     <KeyboardAvoidingView
@@ -24,18 +28,28 @@ export const SearchInputScreen: React.FC = () => {
       style={styles.container}
     >
       <ScrollView keyboardShouldPersistTaps="always">
-        <View style={styles.section}>
-          <View style={styles.sectionTitleContainer}>
-            <Text variant="sectionTitle">최신</Text>
-            <HeaderTextButton text="삭제" />
+        {recentQueries.length > 0 && (
+          <View style={styles.section}>
+            <View style={styles.sectionTitleContainer}>
+              <Text variant="sectionTitle">최신</Text>
+              <HeaderTextButton text="삭제" onPress={clearRecentQuery} />
+            </View>
+            <SearchQueryList
+              data={recentQueries}
+              containerStyle={styles.queryList}
+              type="search"
+            />
           </View>
-          <SearchQueryList containerStyle={styles.queryList} type="search" />
-        </View>
+        )}
         <View style={styles.section}>
           <View style={styles.sectionTitleContainer}>
             <Text variant="sectionTitle">최신 경향</Text>
           </View>
-          <SearchQueryList containerStyle={styles.queryList} type="trend" />
+          <SearchQueryList
+            data={DUMMY_TREND_QUERIES}
+            containerStyle={styles.queryList}
+            type="trend"
+          />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -11,6 +11,7 @@ import { useTextInput } from '@/hooks/utils/useTextInput';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SearchStackParamList } from '@/routes/components/SearchStack/SearchStack.type';
 import { RootStackParamList } from '@/routes/components';
+import { useSearchStore } from '@/stores';
 
 interface Props {
   query?: string;
@@ -24,6 +25,7 @@ export const SearchHeader: React.FC<Props> = (props) => {
       StackNavigationProp<SearchStackParamList & RootStackParamList>
     >();
   const route = useRoute();
+  const { addRecentQuery } = useSearchStore((state) => state);
   const { value, ref, dismissKeyboard, clearValue, handleValue } =
     useTextInput(query);
 
@@ -39,8 +41,11 @@ export const SearchHeader: React.FC<Props> = (props) => {
   };
 
   const handleSubmit = () => {
+    if (!value) return;
+
     clearValue();
     navigation.navigate('QueryPhotosScreen', { query: value });
+    addRecentQuery(value);
   };
 
   const handleReset = () => {

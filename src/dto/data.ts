@@ -103,7 +103,13 @@ export const SHOW_KEYWORDS: KeywordBoxData[] = [
   },
 ];
 
-export const DUMMY_TREND_QUERIES = ['cat', 'planet', 'travel', 'nature'];
+export const DUMMY_TREND_QUERIES = [
+  'cat',
+  'planet',
+  'travel',
+  'nature',
+  'astronaut',
+];
 
 export const QUERY_OPTION_DATA = [
   {
