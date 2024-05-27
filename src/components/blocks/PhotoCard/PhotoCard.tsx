@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
+import RN from 'react-native';
 import { PhotoData } from '@/dto';
 import { getDisplayHeight } from '@/libs';
 import { tokens } from '@/ui/themes';
-import { Text, Image } from '@/ui';
+import { Text, Image, Overlay } from '@/ui';
 
 export interface Props {
   data: PhotoData;
@@ -20,7 +20,7 @@ export const PhotoCard: React.FC<Props> = (props) => {
   });
 
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <RN.Pressable style={styles.container} onPress={onPress}>
       <Image
         source={data.urls.regular}
         placeholder={{ blurhash: data.blur_hash }}
@@ -33,16 +33,18 @@ export const PhotoCard: React.FC<Props> = (props) => {
           },
         ]}
       />
-      <View style={styles.overlay}>
-        <View style={styles.nameContainer}>
-          <Text variant="photoCardUserName">{data.user.name}</Text>
-        </View>
-      </View>
-    </Pressable>
+      <Overlay opacity={0.2}>
+        <RN.View style={styles.nameContainer}>
+          <Text variant="photoCardUserName" numberOfLines={1}>
+            {data.user.name}
+          </Text>
+        </RN.View>
+      </Overlay>
+    </RN.Pressable>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = RN.StyleSheet.create({
   container: {
     position: 'relative',
     borderWidth: 1,
@@ -54,18 +56,10 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     position: 'absolute',
-    left: tokens.st.space[150],
-    bottom: tokens.st.space[150],
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
     left: 0,
-    right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
+    width: '100%',
+    paddingHorizontal: tokens.st.space[150],
+    paddingBottom: tokens.st.space[150],
   },
 });

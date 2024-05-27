@@ -19,6 +19,7 @@ export interface Props extends Omit<MasonryFlashListProps<any>, 'renderItem'> {
   loading?: boolean;
   hasNextPage?: boolean;
   showFiler?: boolean;
+  filterActive?: boolean;
 }
 
 export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
@@ -29,6 +30,7 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
       loading,
       hasNextPage,
       showFiler,
+      filterActive,
       onEndReached,
       ListHeaderComponent,
       ...rest
@@ -98,6 +100,7 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
           <FilterButton
             onPress={goToQueryOptionScreen}
             style={[styles.filterButton, { bottom: insets.bottom + 20 }]}
+            active={filterActive}
           />
         )}
       </RN.View>

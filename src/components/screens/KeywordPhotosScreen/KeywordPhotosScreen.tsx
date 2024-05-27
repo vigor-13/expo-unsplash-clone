@@ -2,7 +2,7 @@ import React from 'react';
 import RN from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '@/routes/components';
-import { useHeader, useSearchPhotos } from '@/hooks';
+import { useHeader, useKeywordPhotos } from '@/hooks';
 import { PhotoList } from '@/components/blocks/PhotoList';
 import { Header } from '@/components/sections/headers/Header';
 
@@ -13,7 +13,7 @@ export const KeywordPhotosScreen: React.FC = () => {
 
   const route =
     useRoute<RouteProp<RootStackParamList, 'KeywordPhotosScreen'>>();
-  const { list, query } = useSearchPhotos({
+  const { list, query } = useKeywordPhotos({
     query: route.params.query,
     orientation: 'portrait',
   });

@@ -2,15 +2,23 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { QueryOptionData } from '@/dto';
 const MAX_QUERY_LENGTH = 5;
 
 interface State {
   recentQueries: string[];
+  queryOption: QueryOptionData;
 }
 interface Action {
   addRecentQuery: (query: string) => void;
   clearRecentQuery: () => void;
+  setQueryOption: (option: QueryOptionData) => void;
+  resetQueryOption: () => void;
 }
+
+export const initialQueryOption: QueryOptionData = {
+  order_by: 'relevant',
+};
 
 export const useSearchStore = create<State & Action>()(
   immer(
@@ -35,6 +43,18 @@ export const useSearchStore = create<State & Action>()(
         clearRecentQuery: () => {
           set((state) => {
             state.recentQueries = [];
+          });
+        },
+
+        queryOption: initialQueryOption,
+        setQueryOption(option) {
+          set((state) => {
+            state.queryOption = option;
+          });
+        },
+        resetQueryOption() {
+          set((state) => {
+            state.queryOption = initialQueryOption;
           });
         },
       }),

@@ -1,4 +1,9 @@
 import { Photo, Topic } from '@/services';
+import {
+  ColorParam,
+  OrderByParam,
+  OrientationParam,
+} from '@/services/api/endpoints/type.param';
 
 export type TopicData = Topic;
 export type PhotoData = Photo;
@@ -9,6 +14,13 @@ export type KeywordData = {
 export type KeywordBoxData = KeywordData & {
   thumbnail: string;
 };
+
+export interface QueryOptionData {
+  order_by?: OrderByParam;
+  orientation?: OrientationParam;
+  color?: ColorParam;
+}
+export type QueryOptionKeyData = keyof QueryOptionData;
 
 export const DEFAULT_TOPIC_DATA = {
   id: 'editorial',
@@ -111,14 +123,31 @@ export const DUMMY_TREND_QUERIES = [
   'astronaut',
 ];
 
-export const QUERY_OPTION_DATA = [
+interface SectionData<T> {
+  title: string;
+  data: T;
+}
+
+interface QueryOptionSectionItem {
+  key: QueryOptionKeyData;
+  list: {
+    name: string;
+    value: string | undefined;
+    option?: {
+      color?: string | undefined;
+    };
+  }[];
+}
+
+export const QUERY_OPTION_SECTION: SectionData<QueryOptionSectionItem[]>[] = [
   {
     title: '정렬 기준',
     data: [
       {
+        key: 'order_by',
         list: [
-          { name: '관련성', active: true },
-          { name: '최신순', active: false },
+          { name: '관련성', value: 'relevant' },
+          { name: '최신순', value: 'latest' },
         ],
       },
     ],
@@ -127,11 +156,12 @@ export const QUERY_OPTION_DATA = [
     title: '방향',
     data: [
       {
+        key: 'orientation',
         list: [
-          { name: '모두', active: true },
-          { name: '세로', active: false },
-          { name: '가로', active: false },
-          { name: '정사각형', active: false },
+          { name: '모두', value: undefined },
+          { name: '세로', value: 'portrait' },
+          { name: '가로', value: 'landscape' },
+          { name: '정사각형', value: 'squarish' },
         ],
       },
     ],
@@ -140,19 +170,20 @@ export const QUERY_OPTION_DATA = [
     title: '컬러',
     data: [
       {
+        key: 'color',
         list: [
-          { name: '모두', active: true },
-          { name: '흑백', active: false },
-          { name: '흰색', color: '#ffffff', active: false },
-          { name: '검은색', color: '#000000', active: false },
-          { name: '노란색', color: '#ffd700', active: false },
-          { name: '주황색', color: '#ff8c00', active: false },
-          { name: '빨간색', color: '#ff4500', active: false },
-          { name: '자주색', color: '#9370db', active: false },
-          { name: '자홍색', color: '#c71585', active: false },
-          { name: '녹색', color: '#32cd32', active: false },
-          { name: '청록색', color: '#40e0d0', active: false },
-          { name: '파란색', color: '#00bfff', active: false },
+          { name: '모두', value: undefined },
+          { name: '흑백', value: 'black_and_white' },
+          { name: '흰색', value: 'white', option: { color: '#ffffff' } },
+          { name: '검은색', value: 'black', option: { color: '#000000' } },
+          { name: '노란색', value: 'yellow', option: { color: '#ffd700' } },
+          { name: '주황색', value: 'orange', option: { color: '#ff8c00' } },
+          { name: '빨간색', value: 'red', option: { color: '#ff4500' } },
+          { name: '자주색', value: 'purple', option: { color: '#9370db' } },
+          { name: '자홍색', value: 'magenta', option: { color: '#c71585' } },
+          { name: '녹색', value: 'green', option: { color: '#32cd32' } },
+          { name: '청록색', value: 'teal', option: { color: '#40e0d0' } },
+          { name: '파란색', value: 'blue', option: { color: '#00bfff' } },
         ],
       },
     ],

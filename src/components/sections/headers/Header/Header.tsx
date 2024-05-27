@@ -54,7 +54,9 @@ export const Header: React.FC<Props> = (props) => {
           {headerLeft ? headerLeft() : renderDefaultBackButton()}
         </RN.View>
         <RN.View style={styles.titleContainer}>
-          <Text style={styles.titleText}>{title}</Text>
+          <Text style={styles.titleText} numberOfLines={1}>
+            {title}
+          </Text>
         </RN.View>
         <RN.View style={styles.rightContainer}>
           {headerRight && headerRight()}

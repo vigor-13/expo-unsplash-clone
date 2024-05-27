@@ -5,15 +5,16 @@ import { Text, tokens } from '@/ui';
 
 interface Props {
   name: string;
-  active?: boolean;
   color?: string;
+  active?: boolean;
+  onPress: () => void;
 }
 
 export const FilterOptionButton: React.FC<Props> = (props) => {
-  const { name, active, color } = props;
+  const { name, color, active, onPress } = props;
 
   return (
-    <RN.TouchableOpacity style={styles.container}>
+    <RN.TouchableOpacity style={styles.container} onPress={onPress}>
       <RN.View style={styles.nameContainer}>
         {color && (
           <RN.View style={[styles.color, { backgroundColor: color }]} />

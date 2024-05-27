@@ -1,43 +1,70 @@
 import React from 'react';
 import RN from 'react-native';
-import { QUERY_OPTION_DATA } from '@/dto';
+import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  QUERY_OPTION_SECTION,
+  QueryOptionData,
+  QueryOptionKeyData,
+} from '@/dto';
 import { useHeader } from '@/hooks';
 import { Button, Divider, Text, tokens } from '@/ui';
 import { FilterOptionButton } from '@/components/blocks/FilterOptionButton';
 import { HeaderTextButton } from '@/components/blocks/HeaderTextButton';
 import { Header } from '@/components/sections/headers/Header';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useSearchStore, initialQueryOption } from '@/stores';
 
 export const QueryOptionScreen: React.FC = () => {
+  const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
+  const { setQueryOption, queryOption } = useSearchStore((state) => state);
+  const [previewOption, setPreviewOptions] = React.useState(queryOption);
+
+  const handleResetOption = () => {
+    setPreviewOptions(initialQueryOption);
+  };
+
+  const handleOption = (key: QueryOptionKeyData, value: any) => {
+    const newOption: QueryOptionData = { ...previewOption };
+    newOption[key] = value;
+    setPreviewOptions(newOption);
+  };
+
+  const handleSaveNewQueryOption = () => {
+    setQueryOption(previewOption);
+    navigation.goBack();
+  };
+
+  const checkIsActive = (
+    key: QueryOptionKeyData,
+    value: string | undefined,
+  ) => {
+    return previewOption[key] === value;
+  };
+
   useHeader({
     header: () => (
       <Header
         variant="modal"
         title="필터"
         headerLeft={() => <HeaderTextButton text="닫기" />}
-        headerRight={() => <HeaderTextButton text="초기화" />}
+        headerRight={() => (
+          <HeaderTextButton text="초기화" onPress={handleResetOption} />
+        )}
       />
     ),
   });
 
-  const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
-
-  const handlePress = () => {
-    navigation.goBack();
-  };
-
   return (
     <>
       <RN.SectionList
-        sections={QUERY_OPTION_DATA}
+        sections={QUERY_OPTION_SECTION}
         stickySectionHeadersEnabled={false}
         keyExtractor={(item, index) => index.toString()}
         style={styles.container}
         renderItem={({ item, index }) => {
           return (
-            <RN.View style={styles.sectionBody}>
+            <RN.View style={styles.sectionBody} key={item.key}>
               {item.list.map((option, index) => {
                 return (
                   <>
@@ -45,8 +72,9 @@ export const QueryOptionScreen: React.FC = () => {
                     <FilterOptionButton
                       key={`${option.name}`}
                       name={option.name}
-                      active={option.active}
-                      color={option.color}
+                      color={option.option?.color}
+                      active={checkIsActive(item.key, option.value)}
+                      onPress={() => handleOption(item.key, option.value)}
                     />
                   </>
                 );
@@ -68,7 +96,7 @@ export const QueryOptionScreen: React.FC = () => {
           text="필터 적용"
           size="xl"
           variant="outline"
-          onPress={handlePress}
+          onPress={handleSaveNewQueryOption}
         />
       </RN.View>
     </>
@@ -77,10 +105,8 @@ export const QueryOptionScreen: React.FC = () => {
 
 const styles = RN.StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: tokens.st.color.neutral[900],
     padding: tokens.st.space[200],
-    position: 'relative',
   },
   sectionHeader: {
     marginBottom: tokens.st.space['075'],

@@ -1,16 +1,16 @@
 import React from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Photo, getSearchPhotosOptions } from '@/services';
-import { Orientation } from '@/services/api/endpoints/type.param';
+import { Photo, getKeywordPhotosOptions } from '@/services';
+import { OrientationParam } from '@/services/api/endpoints/type.param';
 
 interface Props {
   query: string;
-  orientation?: Orientation;
+  orientation?: OrientationParam;
 }
 
-export const useSearchPhotos = (props: Props) => {
+export const useKeywordPhotos = (props: Props) => {
   const [list, setList] = React.useState<Photo[]>([]);
-  const query = useInfiniteQuery(getSearchPhotosOptions(props));
+  const query = useInfiniteQuery(getKeywordPhotosOptions(props));
 
   React.useEffect(() => {
     if (query.data) setList(query.data.pages);
