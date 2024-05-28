@@ -5,31 +5,25 @@ import { MainHeader } from '@/components/sections/headers/MainHeader';
 import { PhotoList } from '@/components/blocks/PhotoList';
 import { PhotoListHeader } from '@/components/blocks/PhotoListHeader';
 import { PhotoListTopicHeader } from '@/components/blocks/PhotoListTopicHeader';
-import { TopicSubmitBottomSheet } from '@/components/blocks/TopicSubmitBottomSheet';
+import { TopicSubmitBottomSheet } from '@/components/sections/bottomSheets/TopicSubmitBottomSheet';
 import { usePhotos, useRandomPhoto, useTopicsPhotos } from '@/hooks';
 import { useTopicStore } from '@/stores';
 import { DEFAULT_TOPIC_DATA } from '@/dto';
-import { BottomSheet, useBottomSheet } from '@/ui';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 // import { useScrollToTopOnTopicChange } from './useScrollToTopOnTopicChange';
 
 export const MainScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
   // const { flatListRef } = useScrollToTopOnTopicChange();
-  const {
-    ref: bottomSheetRef,
-    snapPoints,
-    handleOpenSheet,
-    handleCloseSheet,
-    getContentHeight,
-  } = useBottomSheet({
-    initialSnapPoints: ['55%'],
-    enableContentFitSnapPoint: true,
-  });
-
+  const bottomSheetRef = React.useRef<BottomSheetModal>(null);
   const { activeTopic } = useTopicStore((state) => state);
   const { data: randomPhoto } = useRandomPhoto();
   const { query: photosQuery, list: photos } = usePhotos();
   const { query: topicsPhotosQuery, list: topicsPhotos } = useTopicsPhotos();
+
+  const handleOpenSheet = React.useCallback(() => {
+    bottomSheetRef.current?.present();
+  }, []);
 
   return (
     <>
@@ -65,18 +59,7 @@ export const MainScreen: React.FC = () => {
         )}
       </View>
       {activeTopic.preview_photos && (
-        /**
-         * DEFAULT_TOPIC_DATA 에는 preview_photos 속성이 없음.
-         * - TODO: 개선 필요
-         */
-        <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints}>
-          <TopicSubmitBottomSheet
-            ref={bottomSheetRef}
-            data={activeTopic}
-            handleClose={handleCloseSheet}
-            onLayout={getContentHeight}
-          />
-        </BottomSheet>
+        <TopicSubmitBottomSheet data={activeTopic} ref={bottomSheetRef} />
       )}
     </>
   );

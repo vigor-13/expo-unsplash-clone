@@ -4,23 +4,19 @@ import { IconLibraryPhoto } from '@tabler/icons-react-native';
 import { useHeader, useTopics } from '@/hooks';
 import { SimpleTextHeader } from '@/components/sections/headers/SimpleTextHeader';
 import { TopicBoxList } from '@/components/sections/lists/TopicBoxList';
-import { BottomSheet, useBottomSheet, Text, tokens } from '@/ui';
+import { Text, tokens } from '@/ui';
 import { TopicData } from '@/dto';
-import { TopicSubmitBottomSheet } from '@/components/blocks/TopicSubmitBottomSheet';
+import { TopicSubmitBottomSheet } from '@/components/sections/bottomSheets/TopicSubmitBottomSheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 export const SubmitScreen: React.FC = () => {
   const { list: topics, activeTopic } = useTopics();
+  const bottomSheetRef = React.useRef<BottomSheetModal>(null);
   const [data, setData] = React.useState<TopicData[]>([]);
-  const {
-    ref: bottomSheetRef,
-    snapPoints,
-    handleOpenSheet,
-    handleCloseSheet,
-    getContentHeight,
-  } = useBottomSheet({
-    initialSnapPoints: ['55%'],
-    enableContentFitSnapPoint: true,
-  });
+
+  const handleOpenSheet = React.useCallback(() => {
+    bottomSheetRef.current?.present();
+  }, []);
 
   React.useEffect(() => {
     if (topics) {
@@ -51,16 +47,7 @@ export const SubmitScreen: React.FC = () => {
           <TopicBoxList data={data} onPress={handleOpenSheet} />
         </RN.View>
       </RN.ScrollView>
-      <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints}>
-        {activeTopic.preview_photos && (
-          <TopicSubmitBottomSheet
-            ref={bottomSheetRef}
-            data={activeTopic}
-            handleClose={handleCloseSheet}
-            onLayout={getContentHeight}
-          />
-        )}
-      </BottomSheet>
+      <TopicSubmitBottomSheet data={activeTopic} ref={bottomSheetRef} />
     </>
   );
 };

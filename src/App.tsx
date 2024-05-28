@@ -1,7 +1,9 @@
 import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { Router } from '@/routes';
 import { tokens } from '@/ui/themes';
 import { QueryClientProvider, useReactQuery } from '@/utils/react-query';
@@ -39,13 +41,17 @@ export default function App() {
 
   return (
     fontsLoaded && (
-      <QueryClientProvider>
-        <NavigationContainer theme={defaultTheme}>
-          <Prefetch>
-            <Router />
-          </Prefetch>
-        </NavigationContainer>
-      </QueryClientProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <QueryClientProvider>
+          <BottomSheetModalProvider>
+            <NavigationContainer theme={defaultTheme}>
+              <Prefetch>
+                <Router />
+              </Prefetch>
+            </NavigationContainer>
+          </BottomSheetModalProvider>
+        </QueryClientProvider>
+      </GestureHandlerRootView>
     )
   );
 }

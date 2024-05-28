@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { QueryOptionData } from '@/dto';
@@ -60,7 +60,7 @@ export const useSearchStore = create<State & Action>()(
       }),
       {
         name: 'search-store',
-        getStorage: () => AsyncStorage,
+        storage: createJSONStorage(() => AsyncStorage),
       },
     ),
   ),
