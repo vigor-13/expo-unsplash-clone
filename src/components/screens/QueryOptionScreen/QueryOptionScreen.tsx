@@ -60,23 +60,22 @@ export const QueryOptionScreen: React.FC = () => {
       <RN.SectionList
         sections={QUERY_OPTION_SECTION}
         stickySectionHeadersEnabled={false}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => item.key}
         style={styles.container}
         renderItem={({ item, index }) => {
           return (
-            <RN.View style={styles.sectionBody} key={item.key}>
+            <RN.View style={styles.sectionBody}>
               {item.list.map((option, index) => {
                 return (
-                  <>
+                  <RN.View key={`${option.name}`}>
                     {index !== 0 && <Divider style={styles.divider} />}
                     <FilterOptionButton
-                      key={`${option.name}`}
                       name={option.name}
                       color={option.option?.color}
                       active={checkIsActive(item.key, option.value)}
                       onPress={() => handleOption(item.key, option.value)}
                     />
-                  </>
+                  </RN.View>
                 );
               })}
             </RN.View>

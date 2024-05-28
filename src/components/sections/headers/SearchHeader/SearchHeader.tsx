@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import RN from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   useNavigation,
@@ -58,7 +58,7 @@ export const SearchHeader: React.FC<Props> = (props) => {
   });
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <RN.View style={[{ paddingTop: insets.top }]}>
       <SearchBar
         ref={ref}
         value={value}
@@ -69,10 +69,6 @@ export const SearchHeader: React.FC<Props> = (props) => {
         reset={handleReset}
         close={handleClose}
       />
-    </View>
+    </RN.View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {},
-});

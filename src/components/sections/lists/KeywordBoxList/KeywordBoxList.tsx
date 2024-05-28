@@ -1,36 +1,25 @@
 import React from 'react';
-import { View, FlatList, Dimensions, StyleProp, ViewStyle } from 'react-native';
+import RN from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { KeywordBoxData, KeywordData } from '@/dto';
+import { HorizontalList } from '@/ui';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/routes/components';
-import { KeywordBox } from '../KeywordBox';
+import { KeywordBox } from '../../../blocks/KeywordBox';
 
-/**
- * Reference: https://github.com/facebook/react-native/issues/21441#issuecomment-566987535
- */
-const { width: screenWidth } = Dimensions.get('window');
+const { width: screenWidth } = RN.Dimensions.get('window');
 const spacing = 8;
 const itemWidth = screenWidth * 0.29;
 const itemHeight = itemWidth;
-const nishhar = screenWidth - ((itemWidth + spacing) * 2 + spacing * 2);
 
-export interface KeywordBoxListProps {
-  containerStyle?: StyleProp<ViewStyle>;
+interface Props {
+  containerStyle?: RN.StyleProp<RN.ViewStyle>;
   data: KeywordBoxData[];
 }
 
-export const KeywordBoxList: React.FC<KeywordBoxListProps> = (props) => {
+export const KeywordBoxList: React.FC<Props> = (props) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { containerStyle, data } = props;
-  const groupedData = data.reduce<any>((result, item, index) => {
-    if (index % 2 === 0) {
-      result.push([item]);
-    } else {
-      result[result.length - 1].push(item);
-    }
-    return result;
-  }, []);
 
   const onPressKeywordBox = (props: KeywordData) => {
     navigation.navigate('KeywordPhotosScreen', props);
@@ -44,7 +33,7 @@ export const KeywordBoxList: React.FC<KeywordBoxListProps> = (props) => {
     index: number;
   }) => {
     return (
-      <View>
+      <RN.View>
         {item.map((keywordData: KeywordBoxData, subIndex: number) => (
           <KeywordBox
             key={`${index}-${subIndex}`}
@@ -63,22 +52,18 @@ export const KeywordBoxList: React.FC<KeywordBoxListProps> = (props) => {
             }}
           />
         ))}
-      </View>
+      </RN.View>
     );
   };
 
   return (
-    <FlatList
-      data={groupedData}
+    <HorizontalList
+      data={data}
+      groupCount={2}
+      itemWidth={itemWidth}
+      spacing={spacing}
+      snapOffsetSpacing={-20}
       renderItem={renderRow}
-      keyExtractor={(_, index) => index.toString()}
-      snapToAlignment="start"
-      snapToOffsets={[...Array(data.length)].map(
-        (_, i) => i * (itemWidth + spacing) - nishhar * 0.15,
-      )}
-      horizontal
-      decelerationRate="fast"
-      showsHorizontalScrollIndicator={false}
       contentContainerStyle={containerStyle}
     />
   );

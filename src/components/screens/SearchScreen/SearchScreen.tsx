@@ -4,7 +4,7 @@ import { Text, tokens } from '@/ui';
 import { SHOW_KEYWORDS } from '@/dto';
 import { PhotoList } from '@/components/blocks/PhotoList/PhotoList';
 import { usePhotos } from '@/hooks/usePhotos';
-import { KeywordBoxList } from '../../blocks/KeywordBoxList';
+import { KeywordBoxList } from '../../sections/lists/KeywordBoxList';
 import { useHeader } from '@/hooks';
 import { SearchHeader } from '@/components/sections/headers/SearchHeader';
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { DummyScreen } from '@/components/screens/DummyScreen';
 import { MainScreen } from '@/components/screens/MainScreen';
-import { SearchHeader } from '@/components/sections/headers/SearchHeader';
+import { SubmitScreen } from '@/components/screens/SubmitScreen';
 import {
   TabNavigatorIcon,
   type TabNavigatorIconName,
@@ -52,7 +51,7 @@ export const MainTabComponent: React.FC = () => {
     >
       <MainTab.Screen name="MainScreen" component={MainScreen} />
       <MainTab.Screen name="SearchStack" component={SearchStackComponent} />
-      <MainTab.Screen name="SubmitScreen" component={DummyScreen} />
+      <MainTab.Screen name="SubmitScreen" component={SubmitScreen} />
       <MainTab.Screen name="AuthStack" component={AuthStackComponent} />
     </MainTab.Navigator>
   );

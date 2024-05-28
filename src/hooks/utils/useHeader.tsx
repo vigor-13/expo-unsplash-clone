@@ -11,6 +11,7 @@ export const useHeader = (props: Props) => {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
+      headerShown: true,
       header,
     });
   }, [navigation, header]);
