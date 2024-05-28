@@ -22,7 +22,9 @@ export const PhotoCard: React.FC<Props> = (props) => {
   return (
     <RN.Pressable style={styles.container} onPress={onPress}>
       <Image
-        source={data.urls.regular}
+        source={{
+          uri: data.urls.regular,
+        }}
         placeholder={{ blurhash: data.blur_hash }}
         contentFit="cover"
         transition={300}
