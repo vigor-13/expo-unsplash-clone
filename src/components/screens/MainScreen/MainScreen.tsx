@@ -58,9 +58,7 @@ export const MainScreen: React.FC = () => {
           />
         )}
       </View>
-      {activeTopic.preview_photos && (
-        <TopicSubmitBottomSheet data={activeTopic} ref={bottomSheetRef} />
-      )}
+      <TopicSubmitBottomSheet data={activeTopic} ref={bottomSheetRef} />
     </>
   );
 };

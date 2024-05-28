@@ -5,50 +5,51 @@ import { useHeader, useTopics } from '@/hooks';
 import { SimpleTextHeader } from '@/components/sections/headers/SimpleTextHeader';
 import { TopicBoxList } from '@/components/sections/lists/TopicBoxList';
 import { Text, tokens } from '@/ui';
-import { TopicData } from '@/dto';
 import { TopicSubmitBottomSheet } from '@/components/sections/bottomSheets/TopicSubmitBottomSheet';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { TopicData } from '@/dto';
 
 export const SubmitScreen: React.FC = () => {
-  const { list: topics, activeTopic } = useTopics();
+  const { query, activeTopic, setActiveTopic } = useTopics();
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
-  const [data, setData] = React.useState<TopicData[]>([]);
 
-  const handleOpenSheet = React.useCallback(() => {
-    bottomSheetRef.current?.present();
-  }, []);
+  const handleOpenSheet = React.useCallback(
+    (topicData: TopicData) => {
+      setActiveTopic(topicData);
+      bottomSheetRef.current?.present();
+    },
+    [setActiveTopic],
+  );
 
   React.useEffect(() => {
-    if (topics) {
-      const newData = topics;
-      newData.shift();
-      setData(newData);
-    }
-  }, [topics]);
+    if (query.data) setActiveTopic(query.data[0]);
+  }, [query.data, setActiveTopic]);
 
   useHeader({
     header: () => <SimpleTextHeader />,
   });
 
   return (
-    <>
-      <RN.ScrollView style={styles.container}>
-        <RN.TouchableOpacity
-          style={styles.submitButtonContainer}
-          onPress={() => alert('준비중입니다.')}
-        >
-          <IconLibraryPhoto size={52} color={tokens.st.color.neutral[300]} />
-          <Text style={styles.submitButtonText}>
-            최대 규모의 공개 사진 라이브러리에{'\n'}사진을 업로드하세요.
-          </Text>
-        </RN.TouchableOpacity>
-        <RN.View style={styles.section}>
-          <Text style={styles.sectionTitle}>주제에 제출</Text>
-          <TopicBoxList data={data} onPress={handleOpenSheet} />
-        </RN.View>
-      </RN.ScrollView>
-      <TopicSubmitBottomSheet data={activeTopic} ref={bottomSheetRef} />
-    </>
+    query.data && (
+      <>
+        <RN.ScrollView style={styles.container}>
+          <RN.TouchableOpacity
+            style={styles.submitButtonContainer}
+            onPress={() => alert('준비중입니다.')}
+          >
+            <IconLibraryPhoto size={52} color={tokens.st.color.neutral[300]} />
+            <Text style={styles.submitButtonText}>
+              최대 규모의 공개 사진 라이브러리에{'\n'}사진을 업로드하세요.
+            </Text>
+          </RN.TouchableOpacity>
+          <RN.View style={styles.section}>
+            <Text style={styles.sectionTitle}>주제에 제출</Text>
+            <TopicBoxList data={query.data} onPress={handleOpenSheet} />
+          </RN.View>
+        </RN.ScrollView>
+        <TopicSubmitBottomSheet data={activeTopic} ref={bottomSheetRef} />
+      </>
+    )
   );
 };
 

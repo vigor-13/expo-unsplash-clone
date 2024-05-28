@@ -3,7 +3,6 @@ import React from 'react';
 import RN from 'react-native';
 import { HorizontalList } from '@/ui';
 import { TopicBox } from '@/components/blocks/TopicBox';
-import { useTopics } from '@/hooks';
 
 const { width: screenWidth } = RN.Dimensions.get('window');
 const spacing = 12;
@@ -13,12 +12,11 @@ const itemHeight = itemWidth * 0.75;
 interface Props {
   data: TopicData[];
   containerStyle?: RN.StyleProp<RN.ViewStyle>;
-  onPress?: () => void;
+  onPress?: (data: TopicData) => void;
 }
 
 export const TopicBoxList: React.FC<Props> = (props) => {
   const { data, containerStyle, onPress } = props;
-  const { setActiveTopic } = useTopics();
 
   const renderRow = ({ item, index }: { item: TopicData[]; index: number }) => {
     return (
@@ -34,8 +32,7 @@ export const TopicBoxList: React.FC<Props> = (props) => {
               marginBottom: subIndex === 1 ? 0 : spacing,
             }}
             onPress={() => {
-              setActiveTopic(topicData);
-              if (onPress) onPress();
+              if (onPress) onPress(topicData);
             }}
           />
         ))}

@@ -1,5 +1,5 @@
 import { TopicData } from '@/dto';
-import { Overlay, Text, Image, tokens } from '@/ui';
+import { Overlay, Text, tokens, Image } from '@/ui';
 import React from 'react';
 import RN from 'react-native';
 
