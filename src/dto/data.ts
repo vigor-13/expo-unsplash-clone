@@ -4,7 +4,9 @@ import {
   OrderByParam,
   OrientationParam,
 } from '@/services/api/endpoints/type.param';
+import { Session } from '@supabase/supabase-js';
 
+export type SessionData = Session | null;
 export type TopicData = Topic;
 export type PhotoData = Photo;
 export type KeywordData = {

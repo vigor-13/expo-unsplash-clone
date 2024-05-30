@@ -8,12 +8,14 @@ import {
 } from 'react-native';
 import { tokens } from '@/ui/themes';
 import { Text } from '../Text';
+import { Spinner } from '../Spinner';
 
 export interface ButtonProps extends TouchableOpacityProps {
   text?: string;
   textStyle?: StyleProp<TextStyle>;
   size?: 'sm' | 'base' | 'lg' | 'xl';
   variant?: 'solid' | 'outline';
+  loading?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
@@ -24,6 +26,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
     textStyle,
     size = 'base',
     variant = 'solid',
+    loading,
     ...rest
   } = props;
 
@@ -43,11 +46,15 @@ export const Button: React.FC<ButtonProps> = (props) => {
     >
       {children ? (
         children
+      ) : loading ? (
+        <Spinner color={tokens.st.color.black} />
       ) : (
         <Text
           style={[
             styles.text,
             variant === 'outline' && styles.outlineText,
+            size === 'sm' && styles.smText,
+            size === 'lg' && styles.lgText,
             size === 'xl' && styles.xlText,
             textStyle,
           ]}
@@ -68,24 +75,30 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   text: {
-    fontSize: tokens.st.font.size.sm,
+    fontSize: tokens.st.font.size.base,
     color: tokens.st.color.black,
     fontWeight: tokens.st.font.weight.semiBold as any,
   },
   sm: {
-    paddingVertical: tokens.st.space['075'],
+    height: 30,
+  },
+  base: {
+    height: 40,
   },
   lg: {
-    paddingVertical: tokens.st.space[100],
+    height: 50,
   },
   xl: {
-    paddingVertical: tokens.st.space[200],
+    height: 55,
+  },
+  smText: {
+    fontSize: tokens.st.font.size.sm,
+  },
+  lgText: {
+    fontSize: tokens.st.font.size.lg,
   },
   xlText: {
     fontSize: tokens.st.font.size.lg,
-  },
-  base: {
-    paddingVertical: tokens.st.space[125],
   },
   solid: {
     backgroundColor: tokens.st.color.white,

@@ -5,6 +5,7 @@ import { useHeader } from '@/hooks';
 import { Header } from '@/components/sections/headers/Header';
 import { useHandleKeyboard } from './useHandleKeyboard';
 import { useHandleNavigation } from './useHandleNavigation';
+import { useHandleLogin } from './useHandleLogin';
 
 export const LoginScreen: React.FC = () => {
   const { goToSignUpScreen } = useHandleNavigation();
@@ -13,10 +14,22 @@ export const LoginScreen: React.FC = () => {
     showKeyboardHideButton,
     renderKeyboardHideButton,
   } = useHandleKeyboard();
+  const {
+    mutation,
+    email,
+    password,
+    errorMessage,
+    handleEmailValue,
+    handlePasswordValue,
+    handleLogin,
+  } = useHandleLogin();
 
   useHeader({
     header: () => <Header headerLeft={() => null} title="" />,
   });
+
+  // TODO:
+  if (mutation.isError) return;
 
   return (
     <RN.KeyboardAvoidingView
@@ -29,12 +42,32 @@ export const LoginScreen: React.FC = () => {
         <RN.View style={styles.inputContainer}>
           <TextInput
             ref={autoFocusInputRef}
+            value={email}
             placeholder="이메일"
             onFocus={showKeyboardHideButton}
+            onChangeText={handleEmailValue}
           />
-          <TextInput placeholder="비밀번호" onFocus={showKeyboardHideButton} />
+          <TextInput
+            value={password}
+            placeholder="비밀번호"
+            textContentType="password"
+            secureTextEntry
+            onFocus={showKeyboardHideButton}
+            onChangeText={handlePasswordValue}
+          />
         </RN.View>
-        <Button text="로그인" size="base" style={styles.button} />
+        {errorMessage && (
+          <RN.View style={styles.errorMessageContainer}>
+            <Text style={styles.errorMessageText}>{errorMessage}</Text>
+          </RN.View>
+        )}
+        <Button
+          text="로그인"
+          style={styles.button}
+          onPress={handleLogin}
+          loading={mutation.isPending}
+          disabled={mutation.isPending}
+        />
         <RN.View style={styles.signUpLinkButtonContainer}>
           <RN.TouchableOpacity onPress={goToSignUpScreen}>
             <Text style={styles.signUpLinkText}>계정이 없으세요? 가입</Text>
@@ -64,6 +97,9 @@ const styles = RN.StyleSheet.create({
     marginTop: tokens.st.space[400],
     gap: tokens.st.space[300],
   },
+  errorMessageContainer: {
+    marginTop: tokens.st.space[300],
+  },
   button: {
     marginTop: tokens.st.space[300],
   },
@@ -73,5 +109,9 @@ const styles = RN.StyleSheet.create({
   },
   signUpLinkText: {
     fontWeight: tokens.st.font.weight.medium as any,
+  },
+  errorMessageText: {
+    textAlign: 'center',
+    color: tokens.st.color.red[500],
   },
 });

@@ -1,10 +1,13 @@
 import React from 'react';
+import RN from 'react-native';
 import {
   IconPhoto,
   IconSearch,
   IconSquarePlus,
   IconUserCircle,
 } from '@tabler/icons-react-native';
+import { MainTabParamList } from '@/routes/components/MainTab';
+import { Avatar, Overlay } from '@/ui';
 
 export type TabNavigatorIconName =
   | 'IconPhoto'
@@ -13,26 +16,34 @@ export type TabNavigatorIconName =
   | 'IconUserCircle';
 
 export interface TabNavigatorIconProps {
-  name: TabNavigatorIconName;
+  name: keyof MainTabParamList;
   color: string;
   size: number;
+  focused: boolean;
 }
 
 export const TabNavigatorIcon: React.FC<TabNavigatorIconProps> = (props) => {
-  const { name, color, size } = props;
+  const { name, color, size, focused } = props;
 
   const renderIcon = () => {
     switch (name) {
-      case 'IconPhoto':
+      case 'MainScreen':
         return <IconPhoto color={color} size={size} />;
-      case 'IconSearch':
+      case 'SearchStack':
         return <IconSearch color={color} size={size} />;
-      case 'IconSquarePlus':
+      case 'SubmitScreen':
         return <IconSquarePlus color={color} size={size} />;
-      case 'IconUserCircle':
+      case 'AuthStack':
         return <IconUserCircle color={color} size={size} />;
-      default:
-        return null;
+      case 'MyProfileScreen':
+        return focused ? (
+          <Avatar size="sm" />
+        ) : (
+          <RN.View>
+            <Overlay opacity={0.5} />
+            <Avatar size="sm" />
+          </RN.View>
+        );
     }
   };
 

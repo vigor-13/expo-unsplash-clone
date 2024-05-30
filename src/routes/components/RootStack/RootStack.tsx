@@ -1,3 +1,4 @@
+import React from 'react';
 import { Dimensions } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppInfoScreen } from '@/components/screens/AppInfoScreen';

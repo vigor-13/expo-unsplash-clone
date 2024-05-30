@@ -4,13 +4,32 @@ import { useHeader } from '@/hooks';
 import { Header } from '@/components/sections/headers/Header';
 import { Button, TextInput, tokens, Text } from '@/ui';
 import { useHandleKeyboard } from './useHandleKeyboard';
+import { useHandleSignup } from './useHandleSignup';
 
 export const SignupScreen: React.FC = () => {
   const { autoFocusInputRef } = useHandleKeyboard();
+  const {
+    mutation,
+    firstName,
+    lastName,
+    name,
+    email,
+    password,
+    errorMessage,
+    handleFirstNameValue,
+    handleLastNameValue,
+    handleNameValue,
+    handleEmailValue,
+    handlePasswordValue,
+    handleSignup,
+  } = useHandleSignup();
 
   useHeader({
     header: () => <Header />,
   });
+
+  // TODO:
+  if (mutation.isError) return;
 
   return (
     <RN.KeyboardAvoidingView
@@ -27,13 +46,47 @@ export const SignupScreen: React.FC = () => {
           가입
         </Text>
         <RN.View style={styles.inputContainer}>
-          <TextInput placeholder="성" />
-          <TextInput placeholder="이름" ref={autoFocusInputRef} />
-          <TextInput placeholder="사용자 이름" />
-          <TextInput placeholder="이메일" />
-          <TextInput placeholder="암호" />
+          <TextInput
+            value={firstName}
+            placeholder="성"
+            onChangeText={handleFirstNameValue}
+          />
+          <TextInput
+            value={lastName}
+            placeholder="이름"
+            ref={autoFocusInputRef}
+            onChangeText={handleLastNameValue}
+          />
+          <TextInput
+            value={name}
+            placeholder="사용자 이름"
+            onChangeText={handleNameValue}
+          />
+          <TextInput
+            value={email}
+            placeholder="이메일"
+            onChangeText={handleEmailValue}
+          />
+          <TextInput
+            value={password}
+            placeholder="암호"
+            textContentType="password"
+            secureTextEntry
+            onChangeText={handlePasswordValue}
+          />
         </RN.View>
-        <Button text="등록" style={styles.button} />
+        {errorMessage && (
+          <RN.View style={styles.errorMessageContainer}>
+            <Text style={styles.errorMessageText}>{errorMessage}</Text>
+          </RN.View>
+        )}
+        <Button
+          text="등록"
+          style={styles.button}
+          onPress={handleSignup}
+          loading={mutation.isPending}
+          disabled={mutation.isPending}
+        />
         <RN.View style={styles.termsContainer}>
           <Text style={styles.termsText}>
             가입하는 경우, 귀하는 이용약관 및 개인정보 취급방침에 {'\n'}
@@ -57,6 +110,9 @@ const styles = RN.StyleSheet.create({
   termsContainer: {
     marginTop: tokens.st.space[200],
   },
+  errorMessageContainer: {
+    marginTop: tokens.st.space[300],
+  },
   button: {
     marginTop: tokens.st.space[300],
   },
@@ -72,5 +128,9 @@ const styles = RN.StyleSheet.create({
     color: tokens.st.color.neutral[400],
     fontSize: tokens.st.font.size.xs,
     textAlign: 'center',
+  },
+  errorMessageText: {
+    textAlign: 'center',
+    color: tokens.st.color.red[500],
   },
 });

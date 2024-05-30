@@ -5,6 +5,7 @@ export type MainTabParamList = {
   SearchStack: undefined;
   SubmitScreen: undefined;
   AuthStack: undefined;
+  MyProfileScreen: undefined;
 };
 
 export type MainTabScreenProps<T extends keyof MainTabParamList> =

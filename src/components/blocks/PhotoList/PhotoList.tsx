@@ -39,20 +39,20 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const insets = useSafeAreaInsets();
 
-    const handleEndReached = () => {
+    const handleEndReached = React.useCallback(() => {
       if (!onEndReached) return;
       if (!hasNextPage) return;
       onEndReached();
-    };
+    }, [hasNextPage, onEndReached]);
 
-    const renderListEmptyComponent = () => {
+    const renderListEmptyComponent = React.useCallback(() => {
       if (!data) return;
       if (data.length === 0 && loading) {
         return <Spinner />;
       }
-    };
+    }, [data, loading]);
 
-    const renderListFooterComponent = () => {
+    const renderListFooterComponent = React.useCallback(() => {
       if (!data || data.length === 0) return null;
       if (hasNextPage) {
         return <Spinner style={styles.spinner} />;
@@ -63,16 +63,19 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
           </RN.View>
         );
       }
-    };
+    }, [data, hasNextPage]);
 
-    const onPressPhotoCard = (index: number) => {
-      setPhotoList(data as PhotoData[]);
-      navigation.navigate('PhotoScreen', { index });
-    };
+    const onPressPhotoCard = React.useCallback(
+      (index: number) => {
+        setPhotoList(data as PhotoData[]);
+        navigation.navigate('PhotoScreen', { index });
+      },
+      [data, navigation, setPhotoList],
+    );
 
-    const goToQueryOptionScreen = () => {
+    const goToQueryOptionScreen = React.useCallback(() => {
       navigation.navigate('QueryOptionScreen');
-    };
+    }, [navigation]);
 
     return (
       <RN.View style={styles.container}>

@@ -4,6 +4,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useQueryClient } from '@tanstack/react-query';
 import { getTopicsOptions, getRandomPhotoOptions } from '@/services/query';
 import { getPhotos } from '@/services/api';
+import { useAuthStore } from './stores';
+import { useSession } from './utils';
 
 export interface PrefetchProps {
   children: React.ReactNode;
@@ -13,6 +15,7 @@ export const Prefetch: React.FC<PrefetchProps> = (props) => {
   const { children } = props;
   const queryClient = useQueryClient();
   const [appIsReady, setAppIsReady] = React.useState(false);
+  const { setSession } = useAuthStore((state) => state);
 
   const onLayoutRootView = React.useCallback(async () => {
     if (appIsReady) await SplashScreen.hideAsync();
@@ -42,8 +45,9 @@ export const Prefetch: React.FC<PrefetchProps> = (props) => {
     prefetch();
   }, [prefetch]);
 
-  if (!appIsReady) return null;
+  useSession({ setSession });
 
+  if (!appIsReady) return null;
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       {children}

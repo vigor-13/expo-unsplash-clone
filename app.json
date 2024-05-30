@@ -27,9 +27,12 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Pretendard-Black.otf"]
+          "fonts": [
+            "./assets/fonts/Pretendard-Black.otf"
+          ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ]
   }
 }

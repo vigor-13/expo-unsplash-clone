@@ -7,6 +7,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { Router } from '@/routes';
 import { tokens } from '@/ui/themes';
 import { QueryClientProvider, useReactQuery } from '@/utils/react-query';
+import { useSupabase } from '@/utils/supabase';
 import { Prefetch } from './Prefetch';
 SplashScreen.preventAutoHideAsync();
 
@@ -38,6 +39,7 @@ export default function App() {
   };
 
   useReactQuery();
+  useSupabase();
 
   return (
     fontsLoaded && (

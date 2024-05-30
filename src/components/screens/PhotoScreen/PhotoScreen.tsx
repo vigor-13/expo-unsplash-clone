@@ -1,12 +1,12 @@
 import React from 'react';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import {
   RouteProp as NativeRouteProp,
   NavigationProp,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import { StyleSheet, View, Dimensions } from 'react-native';
-import { FlashList } from '@shopify/flash-list';
+import { FlashList, ListRenderItem } from '@shopify/flash-list';
 import { ImageZoom } from '@likashefqet/react-native-image-zoom';
 import { IconInfoCircle } from '@tabler/icons-react-native';
 import { RootStackParamList } from '@/routes/components';
@@ -35,9 +35,34 @@ export const PhotoScreen: React.FC = () => {
   );
   useGetPhoto(activeItem.id);
 
-  const openInfoModal = () => {
+  const openInfoModal = React.useCallback(() => {
     navigation.navigate('PhotoInfoScreen', { id: activeItem.id });
-  };
+  }, [activeItem, navigation]);
+
+  const renderItem: ListRenderItem<PhotoData> = React.useCallback(
+    ({ item }) => {
+      return (
+        <View
+          style={{
+            width: screenWidth,
+            height: screenHeight,
+          }}
+        >
+          <ImageZoom
+            uri={item.urls.regular}
+            minScale={0.5}
+            maxScale={10}
+            doubleTapScale={3}
+            minPanPointers={1}
+            isSingleTapEnabled
+            isDoubleTapEnabled
+            resizeMode="contain"
+          />
+        </View>
+      );
+    },
+    [],
+  );
 
   React.useEffect(() => {
     return () => clearPhotoList();
@@ -64,27 +89,7 @@ export const PhotoScreen: React.FC = () => {
             setActiveItem(viewableItems[0].item);
           }
         }}
-        renderItem={({ item }) => {
-          return (
-            <View
-              style={{
-                width: screenWidth,
-                height: screenHeight,
-              }}
-            >
-              <ImageZoom
-                uri={item.urls.regular}
-                minScale={0.5}
-                maxScale={10}
-                doubleTapScale={3}
-                minPanPointers={1}
-                isSingleTapEnabled
-                isDoubleTapEnabled
-                resizeMode="contain"
-              />
-            </View>
-          );
-        }}
+        renderItem={renderItem}
       />
       <IconButton
         icon={IconInfoCircle}
