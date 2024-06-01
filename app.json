@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "expo-unsplash-clone",
+    "name": "Exsplash",
     "slug": "expo-unsplash-clone",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,6 +22,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Pretendard-Black.otf"
+          ]
+        }
+      ],
+      "expo-secure-store"
+    ]
   }
 }

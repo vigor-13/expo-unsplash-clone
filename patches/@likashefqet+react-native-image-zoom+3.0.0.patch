@@ -1,0 +1,58 @@
+diff --git a/node_modules/@likashefqet/react-native-image-zoom/src/hooks/useGestures.ts b/node_modules/@likashefqet/react-native-image-zoom/src/hooks/useGestures.ts
+index 9925ad9..e6bd6aa 100644
+--- a/node_modules/@likashefqet/react-native-image-zoom/src/hooks/useGestures.ts
++++ b/node_modules/@likashefqet/react-native-image-zoom/src/hooks/useGestures.ts
+@@ -1,4 +1,4 @@
+-import { useCallback, useRef } from 'react';
++import { useCallback, useRef, useState } from 'react';
+ import { Gesture } from 'react-native-gesture-handler';
+ import {
+   runOnJS,
+@@ -34,7 +34,7 @@ export const useGestures = ({
+   doubleTapScale = 3,
+   minPanPointers = 2,
+   maxPanPointers = 2,
+-  isPanEnabled = true,
++  // isPanEnabled = true,
+   isPinchEnabled = true,
+   isSingleTapEnabled = false,
+   isDoubleTapEnabled = false,
+@@ -51,6 +51,7 @@ export const useGestures = ({
+   const isInteracting = useRef(false);
+   const isPinching = useRef(false);
+   const { isPanning, startPan, endPan } = usePanGestureCount();
++  const [isPanEnabled, setIsPanEnabled] = useState(false);
+ 
+   const savedScale = useSharedValue(1);
+   const scale = useSharedValue(1);
+@@ -166,6 +167,12 @@ export const useGestures = ({
+     isPinching.current = false;
+     onPinchEnd?.(...args);
+     onInteractionEnded();
++
++    if (scale.value >= 1.2) {
++      setIsPanEnabled(true);
++    } else {
++      setIsPanEnabled(false);
++    }
+   };
+ 
+   const onPanStarted: OnPanStartCallback = (event) => {
+@@ -178,6 +185,12 @@ export const useGestures = ({
+     endPan();
+     onPanEnd?.(...args);
+     onInteractionEnded();
++
++    if (scale.value >= 1.2) {
++      setIsPanEnabled(true);
++    } else {
++      setIsPanEnabled(false);
++    }
+   };
+ 
+   const panGesture = Gesture.Pan()
+@@ -296,3 +309,4 @@ export const useGestures = ({
+ 
+   return { gestures, animatedStyle, reset };
+ };
++
