@@ -9,6 +9,7 @@ export type RootStackParamList = {
   KeywordPhotosScreen: KeywordData;
   QueryPhotosScreen: { query: string };
   QueryOptionScreen: undefined;
+  LoginModalScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

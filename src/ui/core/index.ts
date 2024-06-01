@@ -8,3 +8,6 @@ export * from './Overlay';
 export * from './Divider';
 export * from './Spinner';
 export * from './HorizontalList';
+export * from './TabListView';
+export * from './Tab';
+export * from './KeyboardAvoidingView';

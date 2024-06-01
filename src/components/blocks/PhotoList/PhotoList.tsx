@@ -14,6 +14,7 @@ import { PhotoData } from '@/dto';
 import { Logo } from '../Logo';
 import { FilterButton } from '../FilterButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NoData } from '../NoData/NoData';
 
 export interface Props extends Omit<MasonryFlashListProps<any>, 'renderItem'> {
   loading?: boolean;
@@ -45,11 +46,12 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
       onEndReached();
     }, [hasNextPage, onEndReached]);
 
-    const renderListEmptyComponent = React.useCallback(() => {
-      if (!data) return;
-      if (data.length === 0 && loading) {
-        return <Spinner />;
-      }
+    const isFirstLoading = React.useCallback(() => {
+      return loading && data && data.length === 0;
+    }, [data, loading]);
+
+    const isEmpty = React.useCallback(() => {
+      return !loading && data && data.length === 0;
     }, [data, loading]);
 
     const renderListFooterComponent = React.useCallback(() => {
@@ -77,6 +79,8 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
       navigation.navigate('QueryOptionScreen');
     }, [navigation]);
 
+    if (isFirstLoading()) return <Spinner />;
+    if (isEmpty()) return <NoData />;
     return (
       <RN.View style={styles.container}>
         <MasonryFlashList
@@ -95,7 +99,6 @@ export const PhotoList = React.forwardRef<MasonryFlashListRef<any>, Props>(
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={ListHeaderComponent}
           ListFooterComponent={renderListFooterComponent}
-          ListEmptyComponent={renderListEmptyComponent}
           indicatorStyle="white"
           {...rest}
         />

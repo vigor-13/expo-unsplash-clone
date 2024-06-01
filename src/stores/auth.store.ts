@@ -1,6 +1,6 @@
-import { SessionData } from '@/dto';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import { SessionData } from '@/dto';
 
 interface State {
   session: SessionData;

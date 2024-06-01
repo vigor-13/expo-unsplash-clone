@@ -1,13 +1,16 @@
 import React from 'react';
 import RN from 'react-native';
-import { Button, Text, TextInput, tokens } from '@/ui';
+import { Button, Text, TextInput, tokens, KeyboardAvoidingView } from '@/ui';
 import { useHeader } from '@/hooks';
 import { Header } from '@/components/sections/headers/Header';
 import { useHandleKeyboard } from './useHandleKeyboard';
 import { useHandleNavigation } from './useHandleNavigation';
 import { useHandleLogin } from './useHandleLogin';
+import { useRoute } from '@react-navigation/native';
+import { HeaderTextButton } from '@/components/blocks/HeaderTextButton';
 
 export const LoginScreen: React.FC = () => {
+  const route = useRoute();
   const { goToSignUpScreen } = useHandleNavigation();
   const {
     autoFocusInputRef,
@@ -25,17 +28,28 @@ export const LoginScreen: React.FC = () => {
   } = useHandleLogin();
 
   useHeader({
-    header: () => <Header headerLeft={() => null} title="" />,
+    header: () => {
+      return route.name.includes('Modal') ? (
+        <Header
+          variant="modal"
+          headerLeft={() => <HeaderTextButton text="취소" />}
+        />
+      ) : (
+        <Header headerLeft={() => null} />
+      );
+    },
   });
 
-  // TODO:
-  if (mutation.isError) return;
-
   return (
-    <RN.KeyboardAvoidingView
-      style={styles.container}
-      behavior={RN.Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={80}
+    <KeyboardAvoidingView
+      style={[
+        styles.container,
+        {
+          backgroundColor: route.name.includes('Modal')
+            ? tokens.st.color.neutral[900]
+            : '',
+        },
+      ]}
     >
       <RN.View style={styles.contentContainer}>
         <Text style={styles.titleText}>로그인</Text>
@@ -44,6 +58,8 @@ export const LoginScreen: React.FC = () => {
             ref={autoFocusInputRef}
             value={email}
             placeholder="이메일"
+            textContentType="emailAddress"
+            keyboardType="email-address"
             onFocus={showKeyboardHideButton}
             onChangeText={handleEmailValue}
           />
@@ -75,7 +91,7 @@ export const LoginScreen: React.FC = () => {
         </RN.View>
         {renderKeyboardHideButton()}
       </RN.View>
-    </RN.KeyboardAvoidingView>
+    </KeyboardAvoidingView>
   );
 };
 

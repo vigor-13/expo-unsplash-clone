@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import RN from 'react-native';
 import {
   RouteProp as NativeRouteProp,
   NavigationProp,
@@ -11,12 +11,13 @@ import { ImageZoom } from '@likashefqet/react-native-image-zoom';
 import { IconInfoCircle } from '@tabler/icons-react-native';
 import { RootStackParamList } from '@/routes/components';
 import { CircleIconButton } from '@/components/blocks/CircleIconButton';
-import { usePhotoStore } from '@/stores';
+import { Header } from '@/components/sections/headers/Header';
+import { useAuthStore, useMyStore, usePhotoStore } from '@/stores';
 import { PhotoData } from '@/dto';
 import { tokens, IconButton } from '@/ui';
 import { useGetPhoto, useHeader } from '@/hooks';
-import { Header } from '@/components/sections/headers/Header';
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { width: screenWidth, height: screenHeight } =
+  RN.Dimensions.get('window');
 
 type RouteProps = NativeRouteProp<RootStackParamList, 'PhotoScreen'>;
 
@@ -29,7 +30,9 @@ export const PhotoScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProps>();
   const dataIndex = route.params.index;
+  const { session } = useAuthStore((state) => state);
   const { photoList, clearPhotoList } = usePhotoStore((state) => state);
+  const { toggleLikesPhoto, likesPhoto } = useMyStore((state) => state);
   const [activeItem, setActiveItem] = React.useState<PhotoData>(
     photoList[dataIndex],
   );
@@ -39,10 +42,18 @@ export const PhotoScreen: React.FC = () => {
     navigation.navigate('PhotoInfoScreen', { id: activeItem.id });
   }, [activeItem, navigation]);
 
+  const handleLikes = React.useCallback(() => {
+    if (!session) {
+      navigation.navigate('LoginModalScreen');
+    } else {
+      toggleLikesPhoto(activeItem);
+    }
+  }, [session, activeItem, navigation, toggleLikesPhoto]);
+
   const renderItem: ListRenderItem<PhotoData> = React.useCallback(
     ({ item }) => {
       return (
-        <View
+        <RN.View
           style={{
             width: screenWidth,
             height: screenHeight,
@@ -58,18 +69,24 @@ export const PhotoScreen: React.FC = () => {
             isDoubleTapEnabled
             resizeMode="contain"
           />
-        </View>
+        </RN.View>
       );
     },
     [],
   );
+
+  const isLikedPhoto = React.useCallback(() => {
+    if (!session) return false;
+    if (likesPhoto[activeItem.id]) return true;
+    return false;
+  }, [activeItem, likesPhoto, session]);
 
   React.useEffect(() => {
     return () => clearPhotoList();
   }, [clearPhotoList]);
 
   return (
-    <View style={styles.container}>
+    <RN.View style={styles.container}>
       <FlashList
         ref={ref}
         data={photoList}
@@ -85,9 +102,7 @@ export const PhotoScreen: React.FC = () => {
           itemVisiblePercentThreshold: 70,
         }}
         onViewableItemsChanged={({ viewableItems }) => {
-          if (viewableItems[0]) {
-            setActiveItem(viewableItems[0].item);
-          }
+          if (viewableItems[0]) setActiveItem(viewableItems[0].item);
         }}
         renderItem={renderItem}
       />
@@ -96,20 +111,27 @@ export const PhotoScreen: React.FC = () => {
         containerStyle={styles.info}
         onPress={openInfoModal}
       />
-      <View style={styles.iconContainer}>
-        <CircleIconButton iconName="IconHeartFilled" onPress={() => null} />
-        <CircleIconButton iconName="IconPlus" onPress={() => null} />
+      <RN.View style={styles.iconContainer}>
+        <CircleIconButton
+          iconName="IconHeartFilled"
+          active={isLikedPhoto()}
+          onPress={handleLikes}
+        />
+        <CircleIconButton
+          iconName="IconPlus"
+          onPress={() => alert('준비중입니다.')}
+        />
         <CircleIconButton
           iconName="IconArrowDown"
-          onPress={() => null}
+          onPress={() => alert('준비중입니다.')}
           variant="secondary"
         />
-      </View>
-    </View>
+      </RN.View>
+    </RN.View>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = RN.StyleSheet.create({
   container: {
     flex: 1,
   },

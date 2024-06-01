@@ -4,15 +4,23 @@ import RN from 'react-native';
 interface Props {
   size?: 'sm' | 'md';
   src?: string;
+  containerStyle?: RN.StyleProp<RN.ViewStyle>;
 }
 
 export const Avatar: React.FC<Props> = (props) => {
-  const { size = 'md', src } = props;
+  const { size = 'md', src, containerStyle } = props;
 
   return (
-    <RN.View style={styles.container}>
+    <RN.View
+      style={[
+        styles.container,
+        size === 'sm' && styles.sm,
+        size === 'md' && styles.md,
+        containerStyle,
+      ]}
+    >
       <RN.Image
-        style={[size === 'sm' && styles.sm, size === 'md' && styles.md]}
+        style={styles.image}
         source={
           src
             ? src
@@ -27,13 +35,18 @@ const styles = RN.StyleSheet.create({
   container: {
     borderRadius: 100,
     overflow: 'hidden',
+    backgroundColor: 'red',
   },
   sm: {
     width: 26,
     height: 26,
   },
   md: {
-    width: 100,
-    height: 100,
+    width: 60,
+    height: 60,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
 });

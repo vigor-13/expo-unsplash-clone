@@ -1,7 +1,7 @@
-import { useAuthStore } from '@/stores';
-import { Avatar, Text, tokens } from '@/ui';
 import React from 'react';
 import RN from 'react-native';
+import { useAuthStore } from '@/stores';
+import { Avatar, Text, tokens } from '@/ui';
 
 export const UserProfile: React.FC = () => {
   const { session } = useAuthStore();
@@ -24,6 +24,7 @@ const styles = RN.StyleSheet.create({
     justifyContent: 'flex-end',
     padding: tokens.st.space[200],
     minHeight: 160,
+    backgroundColor: tokens.st.color.neutral[900],
   },
   textContainer: {
     marginTop: tokens.st.space[250],

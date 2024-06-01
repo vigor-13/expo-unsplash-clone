@@ -11,13 +11,15 @@ interface Props {
   iconName: 'IconHeartFilled' | 'IconPlus' | 'IconArrowDown';
   onPress: () => void;
   variant?: 'primary' | 'secondary';
-  // activeColor?: string;
+  active?: boolean;
 }
 
 export const CircleIconButton: React.FC<Props> = (props) => {
-  const { iconName, onPress, variant = 'primary' } = props;
-  const color =
+  const { iconName, onPress, variant = 'primary', active } = props;
+  let color =
     variant === 'primary' ? tokens.st.color.white : tokens.st.color.black;
+  if (active) color = tokens.st.color.red[600];
+
   const bgColor =
     variant === 'primary' ? tokens.st.color.black : tokens.st.color.white;
 

@@ -22,7 +22,7 @@ export const useHandleKeyboard = () => {
     return (
       isKeyboardVisible && (
         <KeyboardHideButton
-          containerStyle={styles.keyboardHideButton}
+          containerStyle={[styles.keyboardHideButton]}
           onPress={dismissKeyboard}
         />
       )
