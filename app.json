@@ -12,13 +12,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vigor13.expounsplashclone"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.vigor13.expounsplashclone"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,7 +34,14 @@
           ]
         }
       ],
-      "expo-secure-store"
-    ]
+      "expo-secure-store",
+      "expo-asset"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "eea33eed-684f-45bb-98d0-5326200c4f2c"
+      }
+    },
+    "owner": "vigor-13"
   }
 }

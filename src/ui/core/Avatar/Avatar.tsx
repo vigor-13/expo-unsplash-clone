@@ -1,5 +1,7 @@
 import React from 'react';
 import RN from 'react-native';
+import { useAssets } from 'expo-asset';
+import { placeholderAvatar } from '@/assets';
 
 interface Props {
   size?: 'sm' | 'md';
@@ -9,6 +11,9 @@ interface Props {
 
 export const Avatar: React.FC<Props> = (props) => {
   const { size = 'md', src, containerStyle } = props;
+  const [assets] = useAssets([placeholderAvatar]);
+
+  if (!assets) return null;
 
   return (
     <RN.View
@@ -21,11 +26,9 @@ export const Avatar: React.FC<Props> = (props) => {
     >
       <RN.Image
         style={styles.image}
-        source={
-          src
-            ? src
-            : require('../../../../assets/images/placeholder-avatars.png')
-        }
+        source={{
+          uri: src ? src : assets[0].uri,
+        }}
       />
     </RN.View>
   );
@@ -35,7 +38,6 @@ const styles = RN.StyleSheet.create({
   container: {
     borderRadius: 100,
     overflow: 'hidden',
-    backgroundColor: 'red',
   },
   sm: {
     width: 26,
