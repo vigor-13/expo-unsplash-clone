@@ -96,8 +96,11 @@ export const PhotoScreen: React.FC = () => {
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
         disableIntervalMomentum
-        snapToAlignment="start"
         decelerationRate="fast"
+        snapToAlignment="start"
+        snapToOffsets={[...Array(photoList.length)].map(
+          (_, i) => i * screenWidth,
+        )}
         viewabilityConfig={{
           itemVisiblePercentThreshold: 70,
         }}

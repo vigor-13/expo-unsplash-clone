@@ -29,7 +29,7 @@ export const KeyboardAvoidingView: React.FC<Props> = (props) => {
 
   return (
     <RN.KeyboardAvoidingView
-      behavior={RN.Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={RN.Platform.OS === 'ios' ? 'padding' : 'padding'}
       keyboardVerticalOffset={getKeyboardVerticalOffset()}
       {...rest}
     >

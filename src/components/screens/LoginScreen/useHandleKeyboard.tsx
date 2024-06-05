@@ -31,7 +31,11 @@ export const useHandleKeyboard = () => {
 
   React.useEffect(() => {
     const focusInput = () => {
-      if (autoFocusInputRef.current) autoFocusInputRef.current.focus();
+      if (autoFocusInputRef.current) {
+        // Ref: https://github.com/software-mansion/react-native-screens/issues/472#issuecomment-1614431150
+        if (RN.Platform.OS === 'android') RN.Keyboard.dismiss();
+        autoFocusInputRef.current.focus();
+      }
     };
 
     const unsubscribe = navigation.addListener('focus', focusInput);

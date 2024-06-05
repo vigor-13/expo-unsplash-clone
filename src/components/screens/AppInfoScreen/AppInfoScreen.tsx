@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import RN from 'react-native';
 import { Logo } from '@/components/blocks/Logo';
 import { LinkButton } from '@/components/blocks/LinkButton';
 import { Text, tokens, Divider } from '@/ui';
@@ -22,31 +22,31 @@ export const AppInfoScreen: React.FC = () => {
     useApplication();
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.section, styles.appInfo]}>
+    <RN.View style={styles.container}>
+      <RN.View style={[styles.section, styles.appInfo]}>
         <Logo size={34} />
         <Text variant="headerTitle">{applicationName}</Text>
         <Text variant="info" style={styles.versionText}>
           {`v${applicationVersion} (${nativeBuildVersion})`}
         </Text>
-      </View>
-      <View style={[styles.section]}>
+      </RN.View>
+      <RN.View style={[styles.section]}>
         <LinkButton text="Unsplash 추천" url="" />
         <Divider />
         <LinkButton text="리뷰 작성" url="" />
         <Divider />
         <LinkButton text="Thinkstock에 의견 보내기" url="" />
-      </View>
-      <View style={[styles.section]}>
+      </RN.View>
+      <RN.View style={[styles.section]}>
         <LinkButton text="unsplash.com 방문" url="https://unsplash.com/ko" />
         <Divider />
         <LinkButton text="라이선스" url="https://unsplash.com/ko/라이선스" />
-      </View>
-    </View>
+      </RN.View>
+    </RN.View>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = RN.StyleSheet.create({
   container: { flex: 1, backgroundColor: tokens.st.color.neutral[900] },
   section: {
     marginTop: tokens.st.space[400],

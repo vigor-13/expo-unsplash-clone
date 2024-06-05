@@ -18,6 +18,7 @@ export const MainTabComponent: React.FC = () => {
   return (
     <MainTab.Navigator
       screenOptions={({ route }) => ({
+        tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: tokens.st.color.white,
@@ -32,7 +33,6 @@ export const MainTabComponent: React.FC = () => {
         ),
         tabBarStyle: {
           backgroundColor: tokens.st.color.neutral[950],
-          paddingTop: 10,
           borderTopWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
