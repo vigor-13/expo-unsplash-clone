@@ -131,6 +131,6 @@ const styles = RN.StyleSheet.create({
     borderTopWidth: 1,
     borderColor: tokens.st.color.neutral[700],
     paddingHorizontal: tokens.st.space[200],
-    paddingTop: tokens.st.space[200],
+    paddingVertical: tokens.st.space[200],
   },
 });

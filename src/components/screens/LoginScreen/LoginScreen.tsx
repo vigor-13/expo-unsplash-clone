@@ -106,7 +106,6 @@ const styles = RN.StyleSheet.create({
   },
   titleText: {
     fontSize: tokens.st.font.size.xl4,
-    lineHeight: tokens.st.font.size.xl4,
     fontWeight: tokens.st.font.weight.semiBold as any,
   },
   inputContainer: {

@@ -44,6 +44,7 @@ export const RootStackComponent = () => {
           gestureEnabled: true,
           gestureDirection: 'vertical',
           gestureResponseDistance: screenHeight,
+          headerStatusBarHeight: 0,
         }}
       >
         <RootStack.Screen name="AppInfoScreen" component={AppInfoScreen} />

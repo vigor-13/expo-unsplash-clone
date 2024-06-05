@@ -8,7 +8,10 @@ export const useHandleKeyboard = () => {
 
   React.useEffect(() => {
     const focusInput = () => {
-      if (autoFocusInputRef.current) autoFocusInputRef.current.focus();
+      if (autoFocusInputRef.current) {
+        if (RN.Platform.OS === 'android') RN.Keyboard.dismiss();
+        autoFocusInputRef.current.focus();
+      }
     };
 
     const unsubscribe = navigation.addListener('focus', focusInput);

@@ -27,6 +27,11 @@ export const Header: React.FC<Props> = (props) => {
   const navigation = useNavigation();
   const goBack = () => navigation.goBack();
 
+  const getModalHeaderInsets = () => {
+    if (RN.Platform.OS === 'ios' && variant === 'modal') return 0;
+    return insets.top;
+  };
+
   const renderDefaultBackButton = () => {
     return (
       <RN.TouchableOpacity onPress={goBack}>
@@ -37,10 +42,7 @@ export const Header: React.FC<Props> = (props) => {
 
   return (
     <RN.View
-      style={[
-        { marginTop: variant === 'modal' ? 0 : insets.top },
-        float && styles.absolute,
-      ]}
+      style={[{ marginTop: getModalHeaderInsets() }, float && styles.absolute]}
     >
       <RN.View
         style={[

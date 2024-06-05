@@ -1,6 +1,10 @@
 import React from 'react';
 import RN from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, {
+  Marker,
+  PROVIDER_GOOGLE,
+  PROVIDER_DEFAULT,
+} from 'react-native-maps';
 import * as Navigation from '@react-navigation/native';
 import { IconMapPin } from '@tabler/icons-react-native';
 import { RootStackParamList } from '@/routes/components';
@@ -36,6 +40,11 @@ export const PhotoInfoScreen: React.FC = () => {
         {hasLocationData && (
           <>
             <MapView
+              provider={
+                RN.Platform.OS === 'android'
+                  ? PROVIDER_GOOGLE
+                  : PROVIDER_DEFAULT
+              }
               userInterfaceStyle="dark"
               style={styles.map}
               initialRegion={{
